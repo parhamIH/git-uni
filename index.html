@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10141e">
-  <meta name="description" content="وب‌بوک فارسی Git و GitHub؛ از چرخهٔ Commit تا Branch، Conflict، Pull Request و انتشار در GitHub Pages.">
-  <title>Git & GitHub — راهنمای تعاملی</title>
+  <meta name="description" content="وب‌بوک آموزشی فارسی Git و GitHub با مثال‌های diff و patch، branch، merge conflict، revert و GitHub Pages.">
+  <title>Git & GitHub — وب‌بوک کاربردی فارسی</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,20 +28,28 @@
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-head">
         <span class="eyebrow">راهنمای مطالعه</span>
-        <span class="chapter-count">۹ فصل · حدود ۳۵ دقیقه</span>
+        <span class="chapter-count">۱۷ فصل · حدود ۱۰۰ تا ۱۱۰ دقیقه</span>
       </div>
       <label class="search-box"><span aria-hidden="true">⌕</span><input type="search" id="navSearch" placeholder="جست‌وجو در فصل‌ها…" aria-label="جست‌وجو در فصل‌ها"></label>
       <nav class="toc" id="toc" aria-label="فهرست فصل‌ها">
         <a href="#home" class="toc-link active"><span class="toc-num">00</span><span>شروع و نقشهٔ راه</span></a>
-        <a href="#why" class="toc-link"><span class="toc-num">01</span><span>Git چیست؟</span></a>
-        <a href="#model" class="toc-link"><span class="toc-num">02</span><span>مدل ذهنی Git</span></a>
-        <a href="#daily" class="toc-link"><span class="toc-num">03</span><span>چرخهٔ روزمره و دستورات</span></a>
-        <a href="#branches" class="toc-link"><span class="toc-num">04</span><span>Branch و Merge</span></a>
-        <a href="#conflicts" class="toc-link"><span class="toc-num">05</span><span>Conflict از کجا می‌آید؟</span></a>
-        <a href="#github" class="toc-link"><span class="toc-num">06</span><span>GitHub از صفر</span></a>
-        <a href="#scenarios" class="toc-link"><span class="toc-num">07</span><span>سناریو و آزمون کلاسی</span></a>
-        <a href="#publish" class="toc-link"><span class="toc-num">08</span><span>انتشار با GitHub Pages</span></a>
-        <a href="#reference" class="toc-link"><span class="toc-num">09</span><span>برگهٔ تقلب و منابع</span></a>
+        <a href="#why" class="toc-link"><span class="toc-num">01</span><span>Git چیست؟ و VCS</span></a>
+        <a href="#setup" class="toc-link"><span class="toc-num">02</span><span>نصب و تنظیم اولیه</span></a>
+        <a href="#model" class="toc-link"><span class="toc-num">03</span><span>مدل ذهنی و وضعیت فایل‌ها</span></a>
+        <a href="#daily" class="toc-link"><span class="toc-num">04</span><span>چرخهٔ روزمره و Commit</span></a>
+        <a href="#diffpatch" class="toc-link"><span class="toc-num">05</span><span>Diff، Patch، Log و Show</span></a>
+        <a href="#fileops" class="toc-link"><span class="toc-num">06</span><span>مدیریت فایل و Undo</span></a>
+        <a href="#branches" class="toc-link"><span class="toc-num">07</span><span>Branch و Merge</span></a>
+        <a href="#conflicts" class="toc-link"><span class="toc-num">08</span><span>Conflict از کجا می‌آید؟</span></a>
+        <a href="#rollback" class="toc-link"><span class="toc-num">09</span><span>Rollback و Revert</span></a>
+        <a href="#github" class="toc-link"><span class="toc-num">10</span><span>GitHub از صفر</span></a>
+        <a href="#github-explore" class="toc-link"><span class="toc-num">11</span><span>کل GitHub، Explore و Stars</span></a>
+        <a href="#issues-workflow" class="toc-link"><span class="toc-num">12</span><span>Issues و پاسخ‌دادن به آن‌ها</span></a>
+        <a href="#remote-deep" class="toc-link"><span class="toc-num">13</span><span>Remoteها به‌صورت کامل</span></a>
+        <a href="#start-to-finish" class="toc-link"><span class="toc-num">14</span><span>از ساخت حساب تا تغییر پروژه</span></a>
+        <a href="#scenarios" class="toc-link"><span class="toc-num">15</span><span>سناریو و آزمون کلاسی</span></a>
+        <a href="#publish" class="toc-link"><span class="toc-num">16</span><span>انتشار با GitHub Pages</span></a>
+        <a href="#reference" class="toc-link"><span class="toc-num">17</span><span>برگهٔ تقلب و منابع</span></a>
       </nav>
       <div class="sidebar-tip"><span class="tip-icon">⌘</span><div><strong>قانون طلایی</strong><p>قبل از هر عملیات مهم، وضعیت را بررسی کن؛ وقتی مطمئن نیستی، از help بپرس.</p></div></div>
       <div class="sidebar-footer"><span class="live-dot"></span> مناسب مطالعه و نمایش در کلاس</div>
@@ -55,7 +63,7 @@
             <h1>کد تغییر می‌کند.<br><span class="gradient-text">تاریخچه گم نمی‌شود.</span></h1>
             <p class="hero-lead">یک وب‌بوک برای فهمیدن Git و GitHub از مسیر سناریوهای واقعی: تغییر بده، ثبت کن، شاخه بساز، تعارض را حل کن و با تیم همکاری کن.</p>
             <div class="hero-actions"><a class="button button-primary" href="#why">شروع یادگیری <span aria-hidden="true">←</span></a><button class="button button-outline" id="printButton" type="button">نسخهٔ چاپی / PDF</button></div>
-            <div class="hero-stats"><div><strong>۰۹</strong><span>فصل کاربردی</span></div><div><strong>۲۰+</strong><span>دستور مهم</span></div><div><strong>۰۵</strong><span>سؤال تعاملی</span></div></div>
+            <div class="hero-stats"><div><strong>۱۷</strong><span>فصل آموزشی</span></div><div><strong>۴۰+</strong><span>دستور و سوییچ</span></div><div><strong>۰۵</strong><span>سؤال تعاملی</span></div></div>
           </div>
           <div class="hero-visual" aria-label="تصویر مفهومی تاریخچه و شاخه‌های Git">
             <div class="visual-glow"></div>
@@ -70,6 +78,7 @@
           </div>
         </div>
         <div class="hero-note"><span class="note-mark">i</span><p><strong>قرار نیست تمام سناریوهای Git را حفظ کنی.</strong> هدف این است که مدل ذهنی درست داشته باشی، پیش از تغییر وضعیت را ببینی و برای دستور ناآشنا به راهنمای رسمی مراجعه کنی.</p></div>
+        <div class="scope-legend" aria-label="نشانگر مالکیت قابلیت‌ها"><strong>راهنمای برچسب‌ها:</strong><span class="scope-label scope-git">Git · ابزار کنترل نسخه</span><span class="scope-label scope-github">GitHub · پلتفرم آنلاین</span><span class="scope-label scope-both">هر دو · گردش کار مشترک</span><p>هر فصل مشخص می‌کند کدام ابزار را توضیح می‌دهد. دستورهایی که با <code>git</code> شروع می‌شوند، معمولاً دستورهای خود Git هستند؛ Pull Request و Pages قابلیت‌های GitHub هستند.</p></div>
         <div class="section-heading"><div><span class="eyebrow">نقشهٔ مسیر</span><h2>از تغییر یک فایل تا همکاری تیمی</h2></div><span class="heading-aside">یک داستان، چند مفهوم کلیدی</span></div>
         <div class="roadmap-grid">
           <a class="roadmap-card" href="#why"><span class="roadmap-icon icon-violet">01</span><strong>چرا Version Control؟</strong><p>تاریخچه، مقایسه و بازگشت</p><span class="card-arrow">↗</span></a>
@@ -80,7 +89,7 @@
       </section>
 
       <section class="chapter" id="why" data-title="Git چیست؟">
-        <div class="chapter-head"><span class="chapter-label">فصل 01 / مبانی</span><span class="time-pill">۳ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 01 / مبانی</span><span class="scope-label scope-both">Git + GitHub</span><span class="time-pill">۳ دقیقه</span></div>
         <h2>Git چه مشکلی را حل می‌کند؟</h2>
         <p class="section-lead">فرض کن امروز کد را تغییر داده‌ای و برنامه خراب شده؛ دیروز درست کار می‌کرد. اگر فقط یک پوشه داشته باشی، پیدا کردن تغییر خراب‌کننده ممکن است دشوار شود.</p>
         <div class="comparison-grid">
@@ -93,8 +102,52 @@
         <div class="discussion"><span class="discussion-badge">بحث کلاسی</span><strong>اگر فایل‌های پروژه را با نام‌های v1، v2 و final نگه داریم، چه چیزهایی را از دست می‌دهیم؟</strong><p>از کلاس بخواه مثال بزنند: مقایسهٔ دقیق تغییرها، دلیل هر تغییر، اتصال کار به نویسنده، یا ترکیب امن کار چند نفر.</p></div>
       </section>
 
+      <section class="chapter" id="setup" data-title="نصب و تنظیم اولیه">
+        <div class="chapter-head"><span class="chapter-label">فصل 02 / آماده‌سازی</span><span class="scope-label scope-git">Git</span><span class="time-pill">۵ دقیقه</span></div>
+        <h2>از نصب Git تا ساخت اولین مخزن</h2>
+        <p class="section-lead">Git برنامه‌ای است که روی سیستم خودت نصب می‌شود. GitHub وب‌سایتی جداگانه است؛ برای کار محلی با Git مجبور نیستی حساب GitHub داشته باشی یا اینترنتت همیشه متصل باشد.</p>
+        <div class="install-grid">
+          <article><span class="install-os">Windows</span><h3>نصب روی ویندوز</h3><p>از نصب‌کنندهٔ رسمی Git for Windows استفاده کن. در پایان PowerShell، Windows Terminal یا Git Bash را باز کن.</p><pre class="code-block"><code>git --version</code></pre><a class="text-link" href="https://git-scm.com/download/win" target="_blank" rel="noopener">دانلود رسمی Git for Windows ↗</a></article>
+          <article><span class="install-os">macOS</span><h3>نصب روی مک</h3><p>می‌توان از ابزارهای خط فرمان Xcode یا مدیر بسته استفاده کرد. بعد از نصب، نسخه را بررسی کن.</p><pre class="code-block"><code>git --version
+# در صورت استفاده از Homebrew:
+brew install git</code></pre><a class="text-link" href="https://git-scm.com/download/mac" target="_blank" rel="noopener">روش‌های رسمی macOS ↗</a></article>
+          <article><span class="install-os">Linux</span><h3>نصب روی لینوکس</h3><p>از مدیر بستهٔ توزیع خودت استفاده کن. این نمونه‌ها برای توزیع‌های رایج‌اند.</p><pre class="code-block"><code># Debian / Ubuntu
+sudo apt update && sudo apt install git
+
+# Fedora
+sudo dnf install git</code></pre><a class="text-link" href="https://git-scm.com/download/linux" target="_blank" rel="noopener">راهنمای رسمی لینوکس ↗</a></article>
+        </div>
+        <h3>تنظیمات اولیه‌ای که واقعاً لازم‌اند</h3>
+        <pre class="code-block"><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main
+
+# دیدن مقدارها و این‌که از کدام فایل آمده‌اند
+git config --list --show-origin</code><button class="code-copy" data-copy='git config --global user.name "Your Name"&#10;git config --global user.email "you@example.com"&#10;git config --global init.defaultBranch main&#10;git config --list --show-origin'>کپی</button></pre>
+        <div class="term-grid"><div><b><code>--global</code></b><p>تنظیم را برای کاربر سیستم ثبت می‌کند؛ تنظیم محلی مخزن می‌تواند آن را Override کند.</p></div><div><b><code>user.name</code> و <code>user.email</code></b><p>اطلاعات نویسندگی Commit هستند؛ به‌خودی‌خود نام کاربری یا رمز ورود GitHub نیستند. از ایمیلی استفاده کن که می‌خواهی در تاریخچه ثبت شود؛ GitHub گزینهٔ ایمیل خصوصی هم دارد.</p></div><div><b><code>init.defaultBranch</code></b><p>نام پیش‌فرض شاخهٔ آغازین برای مخزن‌های جدید را تعیین می‌کند، مثلاً <code>main</code>.</p></div></div>
+        <div class="callout callout-red"><strong>رمز عبور را با <code>git config --global password</code> تنظیم نکن.</strong><p>این یک تنظیم عمومی استاندارد برای ورود به GitHub نیست. احراز هویت HTTPS در GitHub با رمز حساب GitHub انجام نمی‌شود؛ از Git Credential Manager / GitHub CLI یا کلید SSH استفاده کن. اگر Git در روش HTTPS از تو «password» خواست، طبق راهنمای GitHub از Personal Access Token استفاده می‌شود، نه رمز عادی حساب. Token را داخل مخزن، کد، URL یا پیام Commit ننویس.</p><p><a class="text-link" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github" target="_blank" rel="noopener">راهنمای احراز هویت GitHub ↗</a></p></div>
+        <h3>تغییر ویرایشگر پیش‌فرض Commit</h3>
+        <p>اگر <code>git commit</code> را بدون <code>-m</code> اجرا کنی، Git ممکن است ویرایشگر متنی باز کند تا پیام Commit را بنویسی. نام برنامه به سیستم و نصب تو بستگی دارد.</p>
+        <pre class="code-block"><code># Visual Studio Code (CLI باید نصب و در PATH باشد)
+git config --global core.editor "code --wait"
+
+# نمونه‌های دیگر
+git config --global core.editor "nano"
+git config --global core.editor "vi"</code><button class="code-copy" data-copy='git config --global core.editor "code --wait"&#10;git config --global core.editor "nano"&#10;git config --global core.editor "vi"'>کپی</button></pre>
+        <div class="editor-grid"><article><h4>Nano</h4><p>راهنمای کلیدها پایین صفحه دیده می‌شود. <kbd>Ctrl+O</kbd> برای ذخیره، <kbd>Enter</kbd> برای تأیید نام فایل و <kbd>Ctrl+X</kbd> برای خروج.</p></article><article><h4>Vi / Vim</h4><p>با <kbd>i</kbd> وارد حالت نوشتن شو؛ پس از نوشتن <kbd>Esc</kbd> را بزن. سپس <code>:wq</code> و Enter برای ذخیره و خروج، یا <code>:q!</code> برای خروج بدون ذخیره.</p></article><article><h4>چرا <code>--wait</code>؟</h4><p>Git باید منتظر بماند تا فایل پیام در ویرایشگر بسته شود. بدون انتظار ممکن است فرایند Commit پیش از پایان ویرایش ادامه یابد.</p></article></div>
+        <h3><code>git init</code> چه می‌کند؟ ساختار <code>.git</code></h3>
+        <pre class="code-block"><code>mkdir demo-git
+cd demo-git
+git init -b main
+# روی سیستم‌های Git قدیمی‌تر ممکن است از git init سپس git branch -M main استفاده شود
+git status</code><button class="code-copy" data-copy='mkdir demo-git&#10;cd demo-git&#10;git init -b main&#10;git status'>کپی</button></pre>
+        <div class="repo-internals"><div class="repo-folder">📁 .git/ <small>Git Directory · داده‌های داخلی مخزن</small></div><div class="repo-files"><div><code>HEAD</code><p>معمولاً مشخص می‌کند اکنون روی کدام شاخه‌ای یا به کدام Commit اشاره می‌کنی.</p></div><div><code>config</code><p>تنظیمات مختص همین مخزن.</p></div><div><code>objects/</code><p>اشیای Git مانند blob، tree، commit و tag.</p></div><div><code>refs/</code><p>ارجاع‌ها، از جمله شاخه‌ها و Tagها؛ جزئیات داخلی می‌تواند متفاوت باشد.</p></div><div><code>index</code><p>نمای Stage یا همان Index؛ معمولاً پس از شروع Stage کردن فایل‌ها شکل می‌گیرد.</p></div></div></div>
+        <p class="hint-text">ساختار داخلی را برای درک مدل ذهنی بشناس، اما فایل‌های داخل <code>.git</code> را دستی ویرایش نکن. <code>git init</code> پوشهٔ کاری را پاک نمی‌کند؛ یک Git Directory ایجاد می‌کند تا Git بتواند تاریخچه را مدیریت کند. Git Directory با Working Tree فرق دارد.</p>
+        <div class="callout callout-blue"><strong>اصطلاحات این فصل</strong><p><b>VCS</b> یا Version Control System یعنی سیستم کنترل نسخه. <b>SCM</b> معمولاً مخفف Source Code Management یا Source Control Management است و در گفت‌وگوی روزمره برای این دسته ابزارها استفاده می‌شود. <b>CVCS</b> یعنی Centralized VCS که یک سرور مرکزی محور اصلی تاریخچه است؛ <b>DVCS</b> یعنی Distributed VCS که توسعه‌دهندگان مخزن محلی و تاریخچه دارند. Git یک DVCS است.</p></div>
+      </section>
+
       <section class="chapter" id="model" data-title="مدل ذهنی Git">
-        <div class="chapter-head"><span class="chapter-label">فصل 02 / مدل ذهنی</span><span class="time-pill">۴ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 03 / مدل ذهنی</span><span class="scope-label scope-git">Git</span><span class="time-pill">۴ دقیقه</span></div>
         <h2>سه فضای مهم؛ یک مسیر ثبت</h2>
         <p class="section-lead">معمولاً بیشتر سردرگمی‌های آغاز کار از این سؤال می‌آید: «تغییر من الان کجاست؟» Git را با این سه فضای اصلی به خاطر بسپار.</p>
         <div class="pipeline" role="img" aria-label="مسیر تغییرات از پوشهٔ کاری تا Stage و مخزن محلی">
@@ -103,13 +156,16 @@
           <div class="pipeline-node commit-node"><span class="node-number">03</span><div class="node-icon">◉</div><h3>Local Repository</h3><p>Commitهایی که در تاریخچهٔ محلی ثبت شده‌اند.</p><code>git log</code></div>
         </div>
         <div class="remote-strip"><span class="remote-icon">⇧</span><div><strong>Remote Repository (مثلاً GitHub)</strong><p>با <code>git push</code> Commitهای محلی را به Remote می‌فرستی؛ Push مرحلهٔ چهارم مسیر کار تیمی است، نه بخشی از خود Commit.</p></div></div>
+        <div class="callout callout-blue"><strong>HEAD یعنی کجا ایستاده‌ای؟</strong><p><code>HEAD</code> معمولاً به شاخهٔ جاری اشاره می‌کند و شاخه به Commit فعلی؛ مثلاً وقتی روی <code>main</code> هستی، HEAD معمولاً همان نقطهٔ فعلی main را دنبال می‌کند. در حالت Detached HEAD مستقیماً روی یک Commit هستی، نه روی نام شاخه؛ برای کار جدید بهتر است شاخه بسازی.</p><pre class="code-block"><code>git status -sb
+git branch --show-current
+git log -1 --oneline --decorate</code></pre></div>
         <div class="callout callout-amber"><strong>نکتهٔ مهم دربارهٔ git add</strong><p><code>git add</code> به معنی «ثبت تغییر در تاریخچه» نیست؛ تغییر را وارد Stage می‌کند. حتی اگر فایلی را Stage کرده باشی، ویرایش بعدی آن فایل به‌طور خودکار به همان snapshot آماده‌شده اضافه نمی‌شود؛ وضعیت را دوباره بررسی کن و در صورت نیاز دوباره add بزن.</p></div>
         <h3>وضعیت فایل‌ها را بخوان</h3>
         <div class="status-table-wrap"><table class="status-table"><thead><tr><th>وضعیت</th><th>معنا</th><th>قدم بعدی احتمالی</th></tr></thead><tbody><tr><td><span class="state-chip state-gray">Untracked</span></td><td>Git هنوز فایل را دنبال نمی‌کند.</td><td><code>git add file</code></td></tr><tr><td><span class="state-chip state-orange">Modified</span></td><td>فایل دنبال می‌شود اما تغییر ثبت‌نشده دارد.</td><td>بررسی با diff و سپس add</td></tr><tr><td><span class="state-chip state-blue">Staged</span></td><td>تغییر برای Commit بعدی انتخاب شده.</td><td><code>git diff --staged</code></td></tr><tr><td><span class="state-chip state-green">Committed</span></td><td>تغییر در تاریخچه ثبت شده.</td><td>در صورت نیاز push</td></tr></tbody></table></div>
       </section>
 
       <section class="chapter" id="daily" data-title="چرخه روزمره و دستورات">
-        <div class="chapter-head"><span class="chapter-label">فصل 03 / کار عملی</span><span class="time-pill">۶ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 04 / کار عملی</span><span class="scope-label scope-git">Git</span><span class="time-pill">۸ دقیقه</span></div>
         <h2>چرخه‌ای که هر روز تکرار می‌شود</h2>
         <p class="section-lead">سناریو: می‌خواهیم یک README برای پروژه بسازیم، آن را بررسی و با پیامی معنادار ثبت کنیم.</p>
         <div class="terminal-window"><div class="terminal-top"><div class="terminal-dots"><i></i><i></i><i></i></div><span>terminal · demo</span><button class="copy-all" type="button" data-copy="git init -b main\ngit status\ngit add README.md\ngit diff --staged\ngit commit -m &quot;docs: add README&quot;\ngit log --oneline\ngit status">کپی فرمان‌ها</button></div><div class="terminal-body">
@@ -132,13 +188,139 @@ git config --list --show-origin</code><button class="code-copy" data-copy='git c
         <div class="callout callout-green"><strong>قاعدهٔ قابل استفاده در کلاس</strong><p>قبل از عملیات پرریسک، بعد از عملیات ناشناخته، پس از حل تعارض و وقتی نمی‌دانی چه اتفاقی افتاده است، <code>git status</code> بزن. این دستور ارزان است؛ حدس‌زدن گران‌تر تمام می‌شود.</p></div>
         <h3>چرا Commitهای کوچک و معنادار؟</h3>
         <div class="commit-benefits"><div><span class="benefit-icon">↶</span><b>بازگشت دقیق‌تر</b><p>اگر یک تغییر مشکل ایجاد کند، پیدا کردن Commit مرتبط راحت‌تر است.</p></div><div><span class="benefit-icon">⌕</span><b>بررسی آسان‌تر</b><p>هم‌تیمی می‌تواند هر Commit را با هدف روشن بررسی کند.</p></div><div><span class="benefit-icon">⚑</span><b>تاریخچهٔ قابل فهم</b><p>پیام Commit می‌گوید چه تغییری و با چه هدفی رخ داده است.</p></div></div>
-        <div class="callout callout-red"><strong>«زیاد Commit کن» یعنی چه؟</strong><p>یعنی وقتی یک واحد منطقی و منسجم از تغییر کامل و قابل توضیح شد، آن را ثبت کن؛ نه این‌که هر خط را جداگانه Commit کنی یا کد نیمه‌کارهٔ خراب را بی‌دلیل به شاخهٔ مشترک بفرستی. در پروژهٔ گروهی، زمان و سیاست تیم هم مهم است.</p></div>
+        <div class="callout callout-red"><strong>«زیاد Commit کن» یعنی چه؟</strong><p>یعنی وقتی یک کار کوچک تمام شد، آن را Commit کن؛ مثلاً «رفع خطای ورود»، «اضافه‌کردن فیلتر جست‌وجو» یا «تکمیل README». لازم نیست برای هر خط یک Commit بسازی. تغییرهای نامربوط را با هم قاطی نکن و کد خراب را بی‌دلیل به شاخهٔ اصلی نفرست. در پروژهٔ گروهی، روش توافق‌شدهٔ تیم را رعایت کن.</p></div>
         <h3>دستورات بررسی که ارزش حفظ‌کردن دارند</h3>
         <div class="command-list"><div class="command-row"><code>git status -sb</code><p><b><code>-s</code></b> خروجی کوتاه، <b><code>-b</code></b> نمایش اطلاعات Branch.</p><button class="copy-btn" data-copy="git status -sb">کپی</button></div><div class="command-row"><code>git diff</code><p>تغییراتِ هنوز Stage نشده را می‌بینی.</p><button class="copy-btn" data-copy="git diff">کپی</button></div><div class="command-row"><code>git diff --staged</code><p>تغییرهایی را می‌بینی که قرار است در Commit بعدی ثبت شوند.</p><button class="copy-btn" data-copy="git diff --staged">کپی</button></div><div class="command-row"><code>git log --oneline --graph --decorate --all</code><p><code>--oneline</code> خلاصه؛ <code>--graph</code> گراف تاریخچه؛ <code>--decorate</code> نام Branch و Tag؛ <code>--all</code> همهٔ refهای قابل نمایش.</p><button class="copy-btn" data-copy="git log --oneline --graph --decorate --all">کپی</button></div><div class="command-row"><code>git show --stat</code><p>نمایی از Commit اخیر یا Commit مشخص، همراه آمار فایل‌ها.</p><button class="copy-btn" data-copy="git show --stat">کپی</button></div></div>
       </section>
 
+      <section class="chapter" id="diffpatch" data-title="Diff، Patch، Log و Show">
+        <div class="chapter-head"><span class="chapter-label">فصل 05 / بررسی تاریخچه</span><span class="scope-label scope-git">Git</span><span class="time-pill">۷ دقیقه</span></div>
+        <h2>Diff، Patch، Log و Show؛ از حدس به شواهد</h2>
+        <p class="section-lead">این ابزارها به تو نشان می‌دهند چه چیزی تغییر کرده، چه چیزی قرار است Commit شود و یک Commit دقیقاً چه محتوایی دارد. پیش از Commit و هنگام Code Review از آن‌ها استفاده کن.</p>
+        <h3>یک Diff ساده را بخوانیم</h3>
+        <p>فرض کن نسخهٔ قبلی فایل <code>hello.py</code> این بوده و فقط متن خروجی را تغییر می‌دهی:</p>
+        <div class="diff-demo-grid"><article><span class="diff-caption">قبل</span><pre><code>def greet(name):
+    return f"Hello, {name}!"</code></pre></article><article><span class="diff-caption">بعد</span><pre><code>def greet(name):
+    return f"Welcome, {name}!"</code></pre></article></div>
+        <pre class="diff-output"><code>diff --git a/hello.py b/hello.py
+index 1a2b3c4..5d6e7f8 100644
+--- a/hello.py
++++ b/hello.py
+@@ -2 +2 @@ def greet(name):
+-    return f"Hello, {name}!"
++    return f"Welcome, {name}!"</code></pre>
+        <div class="diff-legend"><span class="diff-minus">− خط حذف‌شده یا نسخهٔ قبلی</span><span class="diff-plus">+ خط افزوده‌شده یا نسخهٔ جدید</span><span class="diff-meta">@@ محدودهٔ تقریبی تغییر در فایل</span></div>
+        <p>هر خط با <code>-</code> نسخهٔ قبلی و هر خط با <code>+</code> نسخهٔ جدید را نشان می‌دهد. Patch معمولاً همین تفاوتِ قالب‌بندی‌شده به‌همراه اطلاعات مسیر و زمینه است؛ نه یک Commit کامل به‌تنهایی.</p>
+        <h3>کدام <code>git diff</code> را چه زمانی اجرا کنیم؟</h3>
+        <div class="cheatsheet-wrap"><table class="cheatsheet"><thead><tr><th>دستور</th><th>چه دو وضعیتی را مقایسه می‌کند؟</th><th>سؤال کاربردی</th></tr></thead><tbody>
+          <tr><td><code>git diff</code></td><td>Working Tree در برابر Stage / Index</td><td>چه تغییرهایی هنوز Stage نشده‌اند؟</td></tr>
+          <tr><td><code>git diff --staged</code></td><td>Stage در برابر <code>HEAD</code>؛ معادل رایج <code>--cached</code></td><td>چه چیزی وارد Commit بعدی می‌شود؟</td></tr>
+          <tr><td><code>git diff HEAD</code></td><td>Working Tree در برابر Commit جاری؛ تفاوت‌های Staged و Unstaged فایل‌های tracked را می‌بیند</td><td>از آخرین Commit چه تغییر محلی دارم؟ فایل‌های Untracked معمولاً نمایش داده نمی‌شوند.</td></tr>
+          <tr><td><code>git diff &lt;commit&gt;</code></td><td>Working Tree در برابر Commit مشخص</td><td>محتوای فعلی trackedها چه تفاوتی با این Commit دارد؟</td></tr>
+          <tr><td><code>git diff &lt;A&gt; &lt;B&gt;</code></td><td>دو Snapshot / Commit / ref</td><td>بین این دو نقطه از تاریخچه چه تفاوتی است؟</td></tr>
+          <tr><td><code>git diff HEAD~1 HEAD</code></td><td>Commit قبلی در برابر Commit فعلی</td><td>آخرین Commit چه تغییراتی ایجاد کرده است؟</td></tr>
+          <tr><td><code>git diff --check</code></td><td>بازبینی خطاهای رایج whitespace</td><td>آیا فاصلهٔ انتهای خط یا نشانهٔ مشابهی دارم؟</td></tr>
+          <tr><td><code>git diff --stat</code></td><td>خلاصهٔ آماری تغییرها</td><td>کدام فایل‌ها و تقریباً چه مقدار تغییر کرده‌اند؟</td></tr>
+        </tbody></table></div>
+        <div class="callout callout-amber"><strong>قبل از Commit همیشه <code>git diff --staged</code> را ببین.</strong><p><code>git diff</code> به‌تنهایی Stage را نشان نمی‌دهد. ممکن است تغییر خوب را Stage کرده باشی و بعد یک اصلاح ناخواسته انجام داده باشی؛ آن اصلاح دوم در Diff معمولی دیده می‌شود ولی هنوز در Stage نیست.</p></div>
+        <h3><code>git log</code>؛ خواندن تاریخچه</h3>
+        <pre class="code-block"><code>git log
+
+git log --oneline
+git log --oneline --graph --decorate --all
+git log -5 --oneline
+git log --stat
+git log -p -3
+git log --author="Parham"
+git log --grep="fix"
+git log --since="2 weeks ago"
+git log --pretty=format:"%h %ad | %s (%an)" --date=short</code><button class="code-copy" data-copy='git log&#10;git log --oneline&#10;git log --oneline --graph --decorate --all&#10;git log -5 --oneline&#10;git log --stat&#10;git log -p -3&#10;git log --author="Parham"&#10;git log --grep="fix"&#10;git log --since="2 weeks ago"&#10;git log --pretty=format:"%h %ad | %s (%an)" --date=short'>کپی</button></pre>
+        <div class="term-grid"><div><b><code>--oneline</code></b><p>هر Commit را در یک خط با شناسهٔ کوتاه و عنوان پیام نمایش می‌دهد.</p></div><div><b><code>--graph</code></b><p>خطوط شاخه‌شدن و ادغام را به شکل متنی نشان می‌دهد؛ برای خواندن تاریخچهٔ شاخه‌ای مناسب است.</p></div><div><b><code>--decorate --all</code></b><p>نام refها مانند Branch و Tag را اضافه می‌کند و تاریخچهٔ شاخه‌های قابل‌دسترسی را نیز می‌آورد.</p></div><div><b><code>-p</code> / <code>--stat</code></b><p><code>-p</code> Patch هر Commit را نمایش می‌دهد؛ <code>--stat</code> خلاصهٔ فایل‌های تغییرکرده را نشان می‌دهد.</p></div><div><b><code>-5</code> و فیلترها</b><p>مثلاً فقط ۵ Commit اخیر، یا Commitهای نویسنده/پیام/بازهٔ زمانی مشخص.</p></div><div><b>در خروجی معمول <code>git log</code></b><p>شناسهٔ Commit، نویسنده، تاریخ و پیام Commit را می‌بینی؛ بسته به گزینه‌ها اطلاعات بیشتر یا خلاصه‌تر می‌شود.</p></div></div>
+        <h3>پیام Commit در Log چه می‌گوید؟</h3>
+        <pre class="log-output"><code>commit 8fd31c2a...  (شناسهٔ کامل)
+Author: Parham &lt;you@example.com&gt;  (نویسنده)
+Date:   Tue Oct 13 14:20:00 2026 +0330  (تاریخ)
+
+    fix: handle empty search query  (پیام Commit)</code></pre>
+        <p>پیام خوب، هدف و نتیجهٔ تغییر را خلاصه می‌کند. شناسهٔ کوتاه برای اشارهٔ روزمره مفید است، ولی اگر چند Commit شبیه وجود داشته باشد، شناسهٔ کامل یا مرجع دقیق را بررسی کن.</p>
+        <h3><code>git show &lt;commit-id&gt;</code> چه می‌کند؟</h3>
+        <pre class="code-block"><code>git show HEAD
+git show 8fd31c2
+git show --stat 8fd31c2
+git show --format=fuller 8fd31c2</code><button class="code-copy" data-copy='git show HEAD&#10;git show 8fd31c2&#10;git show --stat 8fd31c2&#10;git show --format=fuller 8fd31c2'>کپی</button></pre>
+        <p><code>git show</code> برای یک Commit معمولاً پیام و اطلاعات آن و Diff تغییرهایی را که همان Commit معرفی کرده نمایش می‌دهد. <code>--stat</code> خروجی را به آمار فایل‌ها خلاصه می‌کند. اگر شناسه ندهی، معمولاً شیء فعلی مانند <code>HEAD</code> را نمایش می‌دهد.</p>
+        <h3>Diff را به Patch فایل تبدیل کن و آن را اعمال کن</h3>
+        <p>این نمونه دوطرفه است: در مخزن مبدأ یک Patch تولید می‌کنی و آن را به هم‌تیمی یا مخزن دیگری منتقل می‌کنی که هنوز همان تغییر را ندارد.</p>
+        <pre class="code-block"><code># در مخزن مبدأ: تغییرهای unstaged را ذخیره کن
+git diff > welcome.patch
+
+# یا نسخهٔ Stage شده را ذخیره کن
+git diff --staged > staged.patch
+
+# فایل welcome.patch را به مقصد منتقل کن؛ در مخزن مقصد:
+git status
+git apply --check ../welcome.patch
+git apply ../welcome.patch
+
+git status
+git diff</code><button class="code-copy" data-copy='git diff > welcome.patch&#10;git diff --staged > staged.patch&#10;git apply --check welcome.patch&#10;git apply welcome.patch&#10;git status&#10;git diff'>کپی</button></pre>
+        <div class="callout callout-blue"><strong>دو ابزار متفاوت برای دو نیاز</strong><p><code>git diff</code> تفاوت را تولید می‌کند؛ <code>git apply</code> Patch را روی فایل‌ها اعمال می‌کند، اما به‌تنهایی Commit نمی‌سازد. برای بسته‌بندی Commit همراه اطلاعات آن، <code>git format-patch</code> وجود دارد و معمولاً با <code>git am</code> اعمال می‌شود؛ این روش را با Patch سادهٔ <code>git diff</code> یکی ندان.</p></div>
+        <pre class="code-block"><code># نمونهٔ جریان اشتراک‌گذاری یک Commit
+git format-patch -1 HEAD
+# روی مقصد، فایل خروجی را اعمال و Commit کن
+git am 0001-*.patch</code><button class="code-copy" data-copy='git format-patch -1 HEAD&#10;git am 0001-*.patch'>کپی</button></pre>
+        <p class="hint-text">اگر همین Patch را دوباره روی همان Working Treeای که تغییرها از آن ساخته شده‌اند اعمال کنی، معمولاً به‌دلیل وجود تغییرها قابل اعمال نخواهد بود. در مقصد باید نسخهٔ پایه سازگار باشد. Patch متنی برای فایل‌های متنی مناسب است؛ پیش از اعمال آن، وضعیت مخزن را بررسی کن.</p>
+      </section>
+
+      <section class="chapter" id="fileops" data-title="مدیریت فایل و Undo">
+        <div class="chapter-head"><span class="chapter-label">فصل 06 / وضعیت فایل و بازگردانی</span><span class="scope-label scope-git">Git</span><span class="time-pill">۸ دقیقه</span></div>
+        <h2>هر فایل دقیقاً در چه وضعیتی است؟</h2>
+        <p class="section-lead">Git وضعیت را برای هر فایل می‌سنجد؛ در یک لحظه بعضی فایل‌ها می‌توانند Stage باشند و بعضی دیگر Modified یا Untracked. <code>git status</code> راه اصلی برای فهمیدن همین وضعیت است.</p>
+        <div class="state-flow" role="img" aria-label="مسیر وضعیت فایل: Untracked یا Modified، سپس Stage، سپس Commit و وضعیت پاک"><div class="state-box state-untracked"><b>Untracked / Modified</b><small>فایل جدید است یا نسخهٔ tracked تغییر کرده</small><code>git add</code></div><span class="state-arrow">←</span><div class="state-box state-staged"><b>Staged</b><small>نسخهٔ انتخاب‌شده برای Commit بعدی</small><code>git diff --staged</code></div><span class="state-arrow">←</span><div class="state-box state-clean"><b>Committed / Clean</b><small>پس از Commit فایل tracked با وضعیت ثبت‌شده هماهنگ است</small><code>git commit</code></div></div><p class="hint-text">پس از حالت Clean، ویرایش دوباره فایل آن را Modified می‌کند. اگر فایل هنوز Untracked است، Git محتوای آن را تا وقتی Stage نشود در Diffهای معمول trackedها وارد نمی‌کند.</p>
+        <div class="status-table-wrap"><table class="status-table"><thead><tr><th>وضعیت/اصطلاح</th><th>توضیح</th><th>دستور کمکی</th></tr></thead><tbody>
+          <tr><td>Untracked</td><td>فایل جدیدی است که Git هنوز در Index دنبال نمی‌کند.</td><td><code>git add file</code></td></tr><tr><td>Tracked / Clean</td><td>Git فایل را می‌شناسد و محتوای Working Tree با نسخهٔ ثبت‌شده تطابق دارد.</td><td><code>git status</code></td></tr><tr><td>Modified (unstaged)</td><td>فایل دنبال‌شده تغییر کرده، اما نسخهٔ جدید هنوز Stage نشده است.</td><td><code>git diff</code></td></tr><tr><td>Staged</td><td>یک نسخه از تغییر در Index انتخاب شده تا در Commit بعدی ثبت شود.</td><td><code>git diff --staged</code></td></tr><tr><td>Deleted</td><td>فایل tracked از Working Tree حذف شده؛ حذف باید Stage شود تا در Commit ثبت شود.</td><td><code>git add -A</code> یا <code>git rm</code></td></tr><tr><td>Renamed</td><td>Git پس از Stage یا مقایسه ممکن است جابه‌جایی/تغییرنام را بر اساس شباهت محتوا تشخیص دهد.</td><td><code>git mv old new</code></td></tr><tr><td>Unmerged / Conflicted</td><td>یک ادغام در مورد این فایل هنوز حل نشده است.</td><td><code>git status</code> و ویرایش فایل</td></tr><tr><td>Staged + Modified</td><td>بعد از Stage کردن دوباره فایل را تغییر داده‌ای: یک نسخه Staged و تغییر جدیدی خارج از Stage وجود دارد.</td><td><code>git diff</code> و <code>git diff --staged</code></td></tr>
+        </tbody></table></div>
+        <h3><code>git add -A</code> یا <code>git add -p</code>؟</h3>
+        <div class="two-column-cards"><article><h4><code>git add -A</code></h4><p>همهٔ تغییرهای قابل Stage در محدودهٔ مخزن را هماهنگ می‌کند: فایل‌های جدید، ویرایش‌ها و حذف‌ها. فایل‌های نادیده‌گرفته‌شده معمولاً اضافه نمی‌شوند.</p><pre class="code-block"><code>git status
+git add -A
+git status
+git diff --staged</code></pre><p><b>کاربرد:</b> وقتی تمام تغییرها را مرور کرده‌ای و واقعاً می‌خواهی همه‌شان در Commit بعدی باشند.</p></article><article><h4><code>git add -p</code></h4><p>تغییرها را به تکه‌های کوچک‌تر (hunk) نشان می‌دهد تا انتخاب کنی کدام بخش Stage شود؛ برخلاف <code>git add file.py</code> که همهٔ تغییرهای فعلی آن فایل را Stage می‌کند.</p><pre class="code-block"><code>git add -p app.py
+# y = stage this hunk
+# n = skip this hunk
+# s = split hunk (if possible)
+# q = quit</code></pre><p><b>کاربرد:</b> وقتی دو تغییر مستقل در یک فایل داری و می‌خواهی دو Commit تمیز و جدا بسازی.</p></article></div>
+        <h3><code>git commit -a -m</code> را بشناس</h3>
+        <pre class="code-block"><code>git commit -a -m "fix: validate empty input"</code></pre>
+        <p>گزینهٔ <code>-a</code> محتوای تغییرکرده و حذف‌شدهٔ فایل‌های <b>از قبل Track شده</b> را برای Commit Stage می‌کند و سپس Commit می‌سازد؛ فایل‌های Untracked جدید را وارد نمی‌کند. برای دیدن کنترل دقیق تغییرها، معمولاً <code>git add</code> و سپس <code>git commit -m</code> شفاف‌ترند. پیش از Commit، <code>git status</code> و <code>git diff</code> را ببین.</p>
+        <h3>تغییرنام فایل با <code>git mv</code></h3>
+        <pre class="code-block"><code>git mv old_name.py new_name.py
+git status
+git diff --staged --summary
+git commit -m "refactor: rename parser module"</code></pre>
+        <p><code>git mv</code> فایل را جابه‌جا یا Rename می‌کند و Index را هم به‌روزرسانی می‌کند؛ بعد هنوز باید Commit انجام شود. دستور معمول سیستم‌عامل مثل <code>mv</code> یا تغییرنام در File Explorer هم مجاز است، اما آن روش به‌تنهایی Stage کردن را انجام نمی‌دهد و باید تغییر حذف/افزوده‌شدن را جداگانه با Git مدیریت کنی. Git Rename را در تاریخچه عمدتاً بر اساس شباهت محتوا تشخیص می‌دهد؛ نام ابزار جادو نیست.</p>
+        <h3><code>checkout</code>، <code>switch</code>، <code>restore</code> و <code>reset</code></h3>
+        <div class="undo-map"><div class="undo-node"><b><code>git switch main</code></b><p>شاخهٔ جاری را عوض می‌کند.</p></div><div class="undo-node"><b><code>git checkout -b feature/search</code></b><p>روش کلاسیک برای ساخت شاخه و رفتن به آن؛ امروزه <code>git switch -c</code> واضح‌تر است.</p></div><div class="undo-node undo-danger"><b><code>git restore file.txt</code></b><p>تغییر unstaged فایل را با نسخهٔ Index جایگزین می‌کند؛ ممکن است تغییر محلی را از بین ببرد.</p></div><div class="undo-node"><b><code>git restore --staged file.txt</code></b><p>فایل را از Stage خارج می‌کند و معمولاً تغییرهای Working Tree را نگه می‌دارد.</p></div><div class="undo-node"><b><code>git reset file.txt</code></b><p>در شکل دارای path، Index را برای آن فایل به حالت HEAD برمی‌گرداند؛ معمولاً معادل عملی <code>git restore --staged file.txt</code> است و Working Tree را پاک نمی‌کند.</p></div><div class="undo-node undo-danger"><b><code>git checkout -- file.txt</code></b><p>شکل قدیمی و مبهم برای بازیابی فایل از Index؛ ممکن است تغییر unstaged را دور بریزد. برای شفافیت <code>git restore</code> را ترجیح بده.</p></div></div>
+        <div class="callout callout-red"><strong>سه اسم شبیه‌اند، اثر یکسان ندارند.</strong><p><code>git switch</code> برای شاخه‌هاست؛ <code>git restore</code> برای بازیابی محتوای فایل؛ <code>git reset &lt;file&gt;</code> برای Index. هیچ‌کدام را از روی اسم حدس نزن. قبل و بعد از آن <code>git status</code> بزن، و قبل از حذف تغییر ارزشمند از آن نسخهٔ پشتیبان یا Commit بساز.</p></div>
+        <h3>اصلاح آخرین Commit با <code>--amend</code></h3>
+        <pre class="code-block"><code># تغییرهای Stage شده را به آخرین Commit اضافه کن
+# یا پیام آن را اصلاح کن
+git add README.md
+git commit --amend
+
+# اصلاح پیام فقط؛ بدون باز کردن editor
+git commit --amend -m "docs: clarify setup instructions"
+
+# اگر فقط می‌خواهی پیام قبلی حفظ شود
+git commit --amend --no-edit</code></pre>
+        <p><code>--amend</code> آخرین Commit را با یک Commit جدید جایگزین می‌کند؛ Commitها تغییرناپذیرند، بنابراین شناسهٔ Commit عوض می‌شود حتی اگر فقط پیام را اصلاح کنی. معمولاً این کار را روی Commit محلی یا شاخه‌ای که هنوز دیگران از آن استفاده نکرده‌اند انجام بده. اگر Commit قبلاً Push و توسط دیگران دریافت شده، بازنویسی آن باعث نیاز به Force Push و هماهنگی می‌شود؛ روی تاریخچهٔ مشترک، اغلب ساختن Commit جدید امن‌تر است.</p>
+        <h3><code>git commit -s</code> با <code>-S</code> فرق دارد</h3>
+        <pre class="code-block"><code>git commit -s -m "fix: guard empty filename"</code></pre>
+        <p>گزینهٔ کوچک <code>-s</code> یک خط <code>Signed-off-by: Name &lt;email&gt;</code> به انتهای پیام اضافه می‌کند؛ در بعضی پروژه‌ها برای تأیید منشأ و رعایت Developer Certificate of Origin (DCO) لازم است. این گزینه به‌تنهایی امضای رمزنگاری‌شده نیست. گزینهٔ بزرگ <code>-S</code> برای امضای رمزنگاری‌شدهٔ Commit با کلید تنظیم‌شده کاربرد دارد.</p>
+        <div class="callout callout-green"><strong>اصل مهم:</strong><p>یک Commit برای هر تغییر منطقی و قابل توضیح بساز، نه لزوماً برای هر خط. اگر یک فایل هم اصلاح باگ و هم تغییر مستندات نامرتبط دارد، می‌توان با <code>git add -p</code> آن‌ها را به Commitهای جدا تقسیم کرد.</p></div>
+      </section>
+
       <section class="chapter" id="branches" data-title="Branch و Merge">
-        <div class="chapter-head"><span class="chapter-label">فصل 04 / تاریخچهٔ شاخه‌ای</span><span class="time-pill">۴ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 07 / تاریخچهٔ شاخه‌ای</span><span class="scope-label scope-git">Git</span><span class="time-pill">۷ دقیقه</span></div>
         <h2>Branch؛ قابلیت جدید، بدون ریسک تغییر مستقیم main</h2>
         <p class="section-lead">برای ساختن قابلیت جدید لازم نیست کار روزمره روی شاخهٔ اصلی انجام شود. Branch یک مسیر کاری جدا می‌دهد که بعداً می‌تواند با main ادغام شود.</p>
         <div class="branch-diagram"><svg viewBox="0 0 760 280" role="img" aria-label="نمودار شاخهٔ main و feature و ادغام آن"><g stroke-linecap="round" stroke-width="4" fill="none"><path d="M60 85H700" stroke="#65c89b"/><path d="M230 85C275 85 270 175 320 175H600Q650 175 680 85" stroke="#8d7cf6"/></g><g fill="var(--card)" stroke-width="4"><circle cx="60" cy="85" r="9" stroke="#65c89b"/><circle cx="145" cy="85" r="9" stroke="#65c89b"/><circle cx="230" cy="85" r="9" stroke="#65c89b"/><circle cx="320" cy="175" r="9" stroke="#8d7cf6"/><circle cx="415" cy="175" r="9" stroke="#8d7cf6"/><circle cx="510" cy="175" r="9" stroke="#8d7cf6"/><circle cx="600" cy="175" r="9" stroke="#8d7cf6"/><circle cx="680" cy="85" r="9" stroke="#65c89b"/><circle cx="700" cy="85" r="9" stroke="#65c89b"/></g><g fill="var(--text)" font-size="16" font-family="sans-serif"><text x="65" y="50">main</text><text x="350" y="145">feature/search</text><text x="678" y="50" text-anchor="end">merge</text></g></svg><div class="diagram-legend"><span><i class="dot-green"></i> main</span><span><i class="dot-violet"></i> feature/search</span></div></div>
@@ -158,10 +340,60 @@ git merge feature/add-intro
 git log --oneline --graph --decorate --all</code><button class="code-copy" data-copy='git switch -c feature/add-intro&#10;git add README.md&#10;git commit -m "docs: add introduction"&#10;git switch main&#10;git merge feature/add-intro&#10;git log --oneline --graph --decorate --all'>کپی</button></pre>
         <div class="command-list"><div class="command-row"><code>git branch</code><p>شاخه‌های محلی را فهرست می‌کند؛ شاخهٔ جاری با * مشخص می‌شود.</p><button class="copy-btn" data-copy="git branch">کپی</button></div><div class="command-row"><code>git switch main</code><p>رفتن به شاخهٔ موجود؛ اگر تغییرات محلی با جابه‌جایی تداخل داشته باشند، Git ممکن است جلوی سوییچ را بگیرد.</p><button class="copy-btn" data-copy="git switch main">کپی</button></div><div class="command-row"><code>git branch -d feature/add-intro</code><p><code>-d</code> حذف امن شاخهٔ محلی ادغام‌شده؛ برای حذف شاخهٔ Remote، فرمان جداگانه لازم است.</p><button class="copy-btn" data-copy="git branch -d feature/add-intro">کپی</button></div><div class="command-row"><code>git merge feature/add-intro</code><p>شاخهٔ نام‌برده را در شاخهٔ فعلی ادغام می‌کند؛ ابتدا بررسی کن واقعاً روی شاخهٔ مقصد هستی.</p><button class="copy-btn" data-copy="git merge feature/add-intro">کپی</button></div></div>
         <div class="callout callout-blue"><strong>چرا Branch می‌سازیم؟</strong><p>جداسازی کار، امکان Code Review، آسان‌تر شدن همکاری و حفظ تمرکز شاخهٔ اصلی. اسم‌هایی مثل <code>feature/login</code>، <code>fix/cart-total</code> و <code>docs/setup</code> هدف شاخه را مشخص‌تر می‌کنند.</p></div>
+        <h3>دستورهای Branch که واقعاً لازم‌اند</h3>
+        <div class="command-list">
+          <div class="command-row"><code>git branch</code><p>شاخه‌های محلی را فهرست می‌کند؛ علامت <code>*</code> شاخهٔ جاری است.</p><button class="copy-btn" data-copy="git branch">کپی</button></div>
+          <div class="command-row"><code>git branch -v</code><p>شاخه‌ها را همراه آخرین Commit هرکدام نشان می‌دهد.</p><button class="copy-btn" data-copy="git branch -v">کپی</button></div>
+          <div class="command-row"><code>git branch -vv</code><p>علاوه بر آخرین Commit، اطلاعات upstream و وضعیت ahead/behind را در صورت قابل محاسبه بودن نمایش می‌دهد.</p><button class="copy-btn" data-copy="git branch -vv">کپی</button></div>
+          <div class="command-row"><code>git branch -a</code><p>شاخه‌های محلی و Remote-tracking را لیست می‌کند؛ شاخهٔ Remote-tracking کپی محلیِ وضعیت ریموت است، نه خود سرور.</p><button class="copy-btn" data-copy="git branch -a">کپی</button></div>
+          <div class="command-row"><code>git branch --show-current</code><p>نام شاخهٔ جاری را نشان می‌دهد؛ در کنار <code>git status -sb</code> برای جلوگیری از Merge روی شاخهٔ اشتباه مفید است.</p><button class="copy-btn" data-copy="git branch --show-current">کپی</button></div>
+          <div class="command-row"><code>git checkout -b feature/search</code><p>روش قدیمی‌تر برای ساخت شاخه و رفتن به آن؛ معادل روشن‌تر امروزی: <code>git switch -c feature/search</code>.</p><button class="copy-btn" data-copy="git checkout -b feature/search">کپی</button></div>
+          <div class="command-row"><code>git branch -d feature/search</code><p>حذف محافظه‌کارانه؛ معمولاً اگر Git شاخه را ادغام‌شده نداند، حذف را متوقف می‌کند.</p><button class="copy-btn" data-copy="git branch -d feature/search">کپی</button></div>
+          <div class="command-row"><code>git branch -D feature/search</code><p>حذف اجباری شاخهٔ محلی حتی اگر ادغام نشده باشد. فقط وقتی مطمئنی Commitهای آن دیگر لازم نیستند.</p><button class="copy-btn" data-copy="git branch -D feature/search">کپی</button></div>
+          <div class="command-row"><code>git push origin --delete feature/search</code><p>حذف شاخه از Remote؛ با حذف شاخهٔ محلی فرق دارد. ابتدا مطمئن شو تیم هنوز به آن نیاز ندارد.</p><button class="copy-btn" data-copy="git push origin --delete feature/search">کپی</button></div>
+        </div>
+        <h3>نام‌گذاری شاخه؛ قرارداد تیمی را روشن کنید</h3>
+        <div class="branch-name-grid"><div><code>feature/add-search</code><small>قابلیت جدید</small></div><div><code>fix/cart-total</code><small>رفع باگ</small></div><div><code>docs/git-install</code><small>مستندات</small></div><div><code>refactor/auth-service</code><small>بازآرایی</small></div><div><code>test/login-cases</code><small>تست‌ها</small></div><div><code>parham/feature/add-intro</code><small>پیشوند نام فرد، اگر تیم توافق دارد</small></div></div>
+        <p>نام‌ها را کوتاه، با حروف کوچک و قابل جست‌وجو انتخاب کن. <code>writer/featuer</code> فقط در صورتی مناسب است که تیم دقیقاً چنین قراردادی داشته باشد؛ معمولاً <code>feature/...</code>، <code>fix/...</code> یا ترکیب نام فرد با نوع کار خواناتر است. استاندارد واحدی برای همهٔ تیم‌ها وجود ندارد؛ توافق و وضوح از همه مهم‌ترند.</p>
+        <h3>دو شکل رایج Merge</h3>
+        <div class="merge-types"><article><span class="merge-type-label">Fast-forward · FF</span><h4>فقط جلو رفتن اشاره‌گر</h4><pre><code>main:    A—B
+              \
+feature:        C—D
+
+بعد از FF:
+main:    A—B—C—D</code></pre><p>اگر شاخهٔ مقصد از زمان جدا شدن شاخهٔ دیگر Commit تازه‌ای نداشته باشد و بتوان مسیر را مستقیم جلو برد، Git معمولاً اشاره‌گر را جلو می‌برد؛ Merge Commit جدیدی لازم نیست.</p></article><article><span class="merge-type-label merge-type-violet">Three-way merge</span><h4>ترکیب از یک Base مشترک</h4><pre><code>A——B——E————M  main
+     \     /
+      C——D    feature
+    base: B</code></pre><p>وقتی هر دو شاخه بعد از نقطهٔ مشترک Commitهای جداگانه دارند، Git تغییرات دو سر و Base مشترک را بررسی می‌کند و معمولاً Merge Commit با دو والد می‌سازد. اگر تغییرها ناسازگار باشند، ممکن است Conflict رخ دهد.</p></article></div>
+        <div class="command-list"><div class="command-row"><code>git merge --ff-only feature/search</code><p>فقط وقتی ادغام از نوع Fast-forward ممکن باشد قبول می‌کند؛ در غیر این صورت متوقف می‌شود. برای جلوگیری از Merge Commit ناخواسته روی شاخهٔ ساده مفید است.</p><button class="copy-btn" data-copy="git merge --ff-only feature/search">کپی</button></div><div class="command-row"><code>git merge --no-ff feature/search</code><p>حتی اگر Fast-forward ممکن باشد Merge Commit می‌سازد؛ گاهی برای حفظ مرز یک قابلیت در تاریخچه مفید است.</p><button class="copy-btn" data-copy="git merge --no-ff feature/search">کپی</button></div></div>
+        <h3>Rebase؛ به‌روز کردن شاخه و خطی‌تر کردن Log</h3>
+        <p><code>git rebase</code> Commitهای شاخهٔ فعلی را طوری دوباره اعمال می‌کند که از نوک یک Base جدید ادامه پیدا کنند. این کار می‌تواند تاریخچهٔ Branch شخصی را خواناتر و دنبال‌کردن تغییرها را ساده‌تر کند؛ اما Commitهای بازنویسی‌شده شناسهٔ جدید می‌گیرند.</p>
+        <div class="rebase-visual" role="img" aria-label="قبل از rebase شاخهٔ feature از B جدا می‌شود؛ بعد از rebase، Commitهای جدید روی E قرار می‌گیرند"><article><b>قبل از Rebase</b><pre><code>A——B——E  main
+    \
+     C——D  feature</code></pre><small>شاخه‌ها از B جدا شده‌اند.</small></article><div class="rebase-arrow">→</div><article><b>بعد از Rebase</b><pre><code>A——B——E——C'——D'  feature
+         main</code></pre><small>C و D دوباره اعمال شده‌اند؛ C′ و D′ شناسه‌های جدید دارند.</small></article></div>
+        <pre class="code-block"><code># وضعیت محلی را بررسی کن و اطلاعات Remote را تازه کن
+git status
+git fetch origin
+
+# روی شاخهٔ شخصی خودت باش
+git switch feature/search
+git rebase origin/main
+
+# اگر Conflict شد: فایل را حل و Stage کن
+git add path/to/file
+git rebase --continue
+
+# اگر می‌خواهی عملیات Rebase را لغو کنی:
+git rebase --abort</code><button class="code-copy" data-copy='git status&#10;git fetch origin&#10;git switch feature/search&#10;git rebase origin/main&#10;git add path/to/file&#10;git rebase --continue&#10;git rebase --abort'>کپی</button></pre>
+        <div class="callout callout-red"><strong>قانون ایمنی Rebase</strong><p>Rebase را معمولاً روی Branch شخصی که هنوز دیگران بر اساس Commitهایش کار نمی‌کنند انجام بده. روی Branch مشترک یا Commitهای Pushشده، Rebase بدون هماهنگی می‌تواند تاریخچهٔ دیگران را دچار مشکل کند و گاهی به Force Push نیاز می‌شود. Rebase راه جادویی برای حذف Conflict نیست؛ تعارض ممکن است هنگام اعمال دوبارهٔ هر Commit رخ دهد.</p></div>
+        <div class="callout callout-amber"><strong>Merge را روی شاخهٔ مقصد اجرا کن.</strong><p>برای ادغام feature در main: اول <code>git status</code>، سپس <code>git switch main</code> و در پایان <code>git merge feature/search</code>. دستور Merge شاخهٔ نام‌برده را به شاخهٔ فعلی وارد می‌کند، نه برعکس. در تیم‌هایی که روی شاخهٔ شخصی Rebase را ترجیح می‌دهند، ابتدا سیاست تیم را رعایت کن.</p></div>
       </section>
 
+
+
       <section class="chapter" id="conflicts" data-title="Conflict از کجا می‌آید؟">
-        <div class="chapter-head"><span class="chapter-label">فصل 05 / عیب‌یابی</span><span class="time-pill">۵ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 08 / عیب‌یابی</span><span class="scope-label scope-both">Git + GitHub</span><span class="time-pill">۷ دقیقه</span></div>
         <h2>Merge Conflict: چرا Git تصمیم نمی‌گیرد؟</h2>
         <p class="section-lead">تعارض معمولاً وقتی رخ می‌دهد که تغییرات دو مسیر کاری را نتوان بدون ابهام با هم ادغام کرد. این خطا نشانهٔ «خراب بودن Git» نیست؛ Git دربارهٔ نیت برنامه‌نویس‌ها اطلاعات کافی ندارد.</p>
         <div class="conflict-cause-grid"><article><span class="cause-number">علت ۱</span><h3>ویرایش یک بخش مشابه</h3><p>دو Branch یک خط یا بخش نزدیک را به روش ناسازگار تغییر داده‌اند.</p></article><article><span class="cause-number">علت ۲</span><h3>حذف در برابر ویرایش</h3><p>در یک شاخه فایل حذف شده، در شاخهٔ دیگر همان فایل تغییر کرده است.</p></article><article><span class="cause-number">علت ۳</span><h3>تاریخچه‌های واگرا</h3><p>هر دو شاخه از نقطه‌ای مشترک جدا شده‌اند و پس از آن تغییرهای متفاوتی گرفته‌اند.</p></article></div>
@@ -177,10 +409,37 @@ git log --oneline --graph --decorate --all</code><button class="code-copy" data-
         <ol class="fix-steps"><li><span>۱</span><div><b>وضعیت را ببین</b><p><code>git status</code> فایل‌های حل‌نشده و عملیاتی که متوقف شده‌اند را نشان می‌دهد.</p></div></li><li><span>۲</span><div><b>نسخه‌ها را بررسی کن</b><p>تفاوت هر دو تغییر را بفهم؛ در صورت نیاز از <code>git diff</code> استفاده کن یا با هم‌تیمی هماهنگ شو.</p></div></li><li><span>۳</span><div><b>محتوای نهایی را ویرایش کن</b><p>کد درست را نگه دار یا هر دو تغییر را با هم ترکیب کن. نشانگرهای Conflict را حذف کن.</p></div></li><li><span>۴</span><div><b>فایل حل‌شده را Stage کن</b><p><code>git add path/to/file</code> به Git اعلام می‌کند تعارض این فایل را حل کرده‌ای.</p></div></li><li><span>۵</span><div><b>عملیات را کامل و بررسی کن</b><p>در Merge معمولی با <code>git commit</code> ادغام را نهایی کن (اگر Git خودش Commit ساخته باشد، ممکن است لازم نباشد). تست کن و دوباره <code>git status</code> بزن.</p></div></li></ol>
         <div class="mini-note"><b>اگر می‌خواهی از Merge معمولی منصرف شوی:</b> دستور <code>git merge --abort</code> معمولاً تلاش می‌کند وضعیت قبل از Merge را بازگرداند. اگر از پیش تغییرات محلی داشته‌ای، تضمین نمی‌شود همه‌چیز دقیقاً مثل ابتدا برگردد؛ از وضعیت‌های مهم نسخهٔ پشتیبان داشته باش و پیش از شروع Merge وضعیت را بررسی کن.</div>
         <div class="discussion"><span class="discussion-badge">پرسش کلاسی</span><strong>اگر دو نفر دو بخش کاملاً جدا از یک فایل را تغییر دهند، حتماً Conflict رخ می‌دهد؟</strong><p>خیر. Git معمولاً می‌تواند تغییرهای مستقل را ادغام کند؛ تعارض بیشتر وقتی ایجاد می‌شود که نتواند تغییرهای ناسازگار را خودکار حل کند. حتی Merge بدون Conflict هم ممکن است باگ منطقی ایجاد کند.</p></div>
+        <h3>Conflict در کار تیمی: به‌جای جنگیدن با Git، هماهنگ شوید</h3>
+        <div class="team-conflict-grid"><article><b>قبل از ادغام</b><p>کد را در Branch مستقل نگه دارید، Pull Request کوچک بسازید، با <code>git fetch</code> از وضعیت Remote آگاه شوید و تست‌ها را اجرا کنید.</p></article><article><b>هنگام تعارض</b><p>با نویسندهٔ تغییر دیگر دربارهٔ رفتار موردنظر صحبت کنید. انتخاب کورکورانهٔ “ours” یا “theirs” ممکن است منطق برنامه را خراب کند.</p></article><article><b>پس از حل</b><p>نشانگرها را حذف کنید، <code>git diff</code> را بررسی کنید، تست را اجرا کنید، <code>git status</code> را ببینید و بعد Merge را نهایی کنید.</p></article></div>
+        <div class="callout callout-red"><strong><code>git merge --abort</code> چه زمانی؟</strong><p>وقتی Merge متوقف شده و می‌خواهی آن عملیات را لغو کنی، می‌توانی از <code>git merge --abort</code> استفاده کنی. این دستور تلاش می‌کند وضعیت پیش از شروع Merge را بازگرداند؛ وقتی از ابتدا تغییرهای محلی ثبت‌نشده داشته‌ای، ممکن است نتواند همه‌چیز را دقیقاً به حالت قبلی برگرداند. برای همین قبل از Merge وضعیت را بررسی کن و تغییرهای مهم را Commit یا Stash کن.</p></div>
+      </section>
+
+      <section class="chapter" id="rollback" data-title="Rollback و Revert">
+        <div class="chapter-head"><span class="chapter-label">فصل 09 / بازگشت نسخهٔ منتشرشده</span><span class="scope-label scope-both">Git + GitHub / Deploy</span><span class="time-pill">۵ دقیقه</span></div>
+        <h2>Rollback؛ وقتی نسخهٔ جدید در Production مشکل دارد</h2>
+        <p class="section-lead">Rollback یعنی برگرداندن سرویس به وضعیت پایدار قبلی یا خنثی‌کردن اثر نسخهٔ مشکل‌دار. در Git، راه رایج برای خنثی کردن یک Commit منتشرشده <code>git revert</code> است؛ اما بازگردانی کامل یک Deployment ممکن است به ابزار انتشار، تنظیمات و پایگاه داده هم وابسته باشد.</p>
+        <div class="deploy-timeline" role="img" aria-label="سه قابلیت منتشر شده و بازگشت با Commit معکوس"><div class="deploy-step stable"><span>v1</span><b>نسخهٔ پایدار</b><small>Commit A</small></div><span class="deploy-arrow">→</span><div class="deploy-step"><span>F1</span><b>جست‌وجو</b><small>Commit B</small></div><span class="deploy-arrow">→</span><div class="deploy-step"><span>F2</span><b>پرداخت</b><small>Commit C</small></div><span class="deploy-arrow">→</span><div class="deploy-step broken"><span>F3</span><b>تغییر باگ‌دار</b><small>Commit D · Deploy</small></div><span class="deploy-arrow">↘</span><div class="deploy-step rollback-step"><span>R</span><b>Revert D</b><small>Commit جدید و معکوس</small></div></div>
+        <p>فرض کن سه قابلیت در چند Commit منتشر شده‌اند و پس از Deploy مشخص می‌شود Commit D مشکل را ایجاد کرده است. معمولاً باید Commit معیوب را دقیق شناسایی کنی، اثر معکوس بسازی، تست و Review انجام بدهی و سپس آن اصلاح را منتشر کنی. برای حادثهٔ فوری، سیاست تیم دربارهٔ Rollback مستقیم یا Hotfix را دنبال کن.</p>
+        <h3><code>git revert &lt;commit-id&gt;</code></h3>
+        <pre class="code-block"><code>git status
+git log --oneline --graph --decorate -10
+
+# هش Commit معیوب را از Log بردار
+git revert abc1234
+
+# پیام پیش‌فرض را بررسی/ویرایش و نتیجه را تست کن
+git status
+git show --stat HEAD</code><button class="code-copy" data-copy='git status&#10;git log --oneline --graph --decorate -10&#10;git revert abc1234&#10;git status&#10;git show --stat HEAD'>کپی</button></pre>
+        <div class="two-column-cards"><article><h4>قبل از Revert</h4><pre><code>A — B — C — D (باگ)</code></pre><p>Commit D در تاریخچه وجود دارد و ممکن است قبلاً روی GitHub یا Production رفته باشد.</p></article><article><h4>بعد از Revert</h4><pre><code>A — B — C — D — R</code></pre><p>Commit جدید R اثر D را معکوس می‌کند. D حذف نمی‌شود؛ تاریخچه نشان می‌دهد چه اتفاقی افتاده و چطور جبران شده است.</p></article></div>
+        <h3>چرا Revert در شاخهٔ مشترک مناسب‌تر است؟</h3>
+        <div class="reason-grid"><article><span class="reason-symbol">01</span><strong>تاریخچه حفظ می‌شود</strong><p><code>revert</code> Commit قبلی را حذف یا شناسه‌اش را عوض نمی‌کند؛ یک Commit جدید می‌سازد.</p></article><article><span class="reason-symbol">02</span><strong>برای Review شفاف است</strong><p>پیام Commit باید توضیح دهد چه تغییری خنثی می‌شود و چرا؛ مثال: <code>revert: roll back payment redirect regression</code>.</p></article><article><span class="reason-symbol">03</span><strong>برای تیم قابل پیگیری است</strong><p>همکاران می‌توانند ببینند نسخهٔ مشکل‌دار چه بوده و چه اصلاحی انجام شده است.</p></article></div>
+        <div class="callout callout-amber"><strong>چند هشدار عملی</strong><p>قبل از Revert، با <code>git show &lt;hash&gt;</code> مطمئن شو Commit درست را انتخاب کرده‌ای. معمولاً Working Tree باید تمیز باشد. اگر Revert تعارض ایجاد کرد، Conflict را مانند سایر عملیات‌ها حل کن. برای Revert کردن یک Merge Commit، گزینهٔ <code>-m</code> لازم است و باید Parent درست را بفهمی؛ این حالت را بدون مطالعه یا همراهی هم‌تیمی امتحان نکن.</p><p>اگر Deploy شامل Migration پایگاه داده، تغییر Schema، پیام صف یا دادهٔ ناسازگار باشد، Revert کردن کد به‌تنهایی لزوماً سرویس را به وضعیت سالم برنمی‌گرداند. به برنامهٔ Rollback، سازگاری نسخه و پشتیبان داده نیز نیاز داری.</p></div>
+        <h3>Revert، Restore و Reset یک کار نیستند</h3>
+        <div class="status-table-wrap"><table class="status-table"><thead><tr><th>دستور</th><th>اثر اصلی</th><th>سناریوی مناسب</th></tr></thead><tbody><tr><td><code>git revert &lt;hash&gt;</code></td><td>Commit جدیدی می‌سازد که تغییر قبلی را معکوس می‌کند؛ تاریخچهٔ قبلی باقی می‌ماند.</td><td>خنثی کردن Commitی که روی شاخهٔ مشترک/منتشرشده است.</td></tr><tr><td><code>git restore file</code></td><td>محتوای فایل Working Tree را از Index یا منبع مشخص بازیابی می‌کند؛ ممکن است تغییر محلی را دور بریزد.</td><td>کنارگذاشتن تغییر ثبت‌نشدهٔ فایل با آگاهی از اثر آن.</td></tr><tr><td><code>git reset</code></td><td>بسته به گزینه و شکل اجرا، Index و/یا اشاره‌گر شاخه را جابه‌جا می‌کند.</td><td>کارهای محلی که هنوز به اشتراک گذاشته نشده‌اند؛ جزئیاتش را دقیق یاد بگیر.</td></tr></tbody></table></div>
       </section>
 
       <section class="chapter" id="github" data-title="GitHub از صفر">
-        <div class="chapter-head"><span class="chapter-label">فصل 06 / همکاری آنلاین</span><span class="time-pill">۶ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 10 / همکاری آنلاین</span><span class="scope-label scope-github">GitHub</span><span class="time-pill">۸ دقیقه</span></div>
         <h2>GitHub فقط جای آپلود کد نیست</h2>
         <p class="section-lead">مخزن Git تاریخچهٔ نسخه‌ها را نگه می‌دارد؛ GitHub لایه‌ای برای همکاری، بررسی، مدیریت کار و انتشار مستندات یا سایت است.</p>
         <div class="github-map">
@@ -194,6 +453,26 @@ git log --oneline --graph --decorate --all</code><button class="code-copy" data-
         <div class="callout callout-blue"><strong>Pull Request با git pull فرق دارد.</strong><p><code>git pull</code> یک دستور Git برای دریافت و ادغام تغییرات Remote است. Pull Request یک قابلیت همکاری در GitHub برای پیشنهاد و بررسی تغییرات است.</p></div>
         <h3>گردش کار نمونهٔ یک تیم</h3>
         <div class="team-flow"><div class="flow-step"><span>1</span><b>Issue</b><small>کار را تعریف کن</small></div><i>←</i><div class="flow-step"><span>2</span><b>Branch</b><small>تغییر را جدا کن</small></div><i>←</i><div class="flow-step"><span>3</span><b>Commit + Push</b><small>ثبت و ارسال</small></div><i>←</i><div class="flow-step"><span>4</span><b>PR + Review</b><small>بحث و بازبینی</small></div><i>←</i><div class="flow-step"><span>5</span><b>Merge</b><small>ادغام نهایی</small></div></div>
+        <h3>قبل از شروع کار تیمی: Fetch یا Pull؟</h3>
+        <div class="two-column-cards"><article><h4><code>git fetch origin</code></h4><p>Commitها و اطلاعات تازهٔ Remote را می‌گیرد و Remote-tracking refها مثل <code>origin/main</code> را به‌روز می‌کند. شاخهٔ محلی فعلی را خودکار Merge یا Rebase نمی‌کند؛ بنابراین راه کم‌ریسکی برای بررسی وضعیت جدید است.</p><pre class="code-block"><code>git status
+git fetch origin
+git log --oneline --graph --decorate HEAD..origin/main</code></pre></article><article><h4><code>git pull</code></h4><p>در اصل Fetch به‌علاوهٔ ادغام تغییرهاست؛ روش ادغام می‌تواند Merge یا Rebase باشد و به گزینه‌ها/تنظیمات بستگی دارد. اگر Working Tree تغییرهای مبهم دارد، اول آن را مرتب کن. اجرای Pull بدون فهمیدن اثرش ممکن است Merge یا Conflict غیرمنتظره بسازد.</p><pre class="code-block"><code>git status
+# در workflow ساده، اگر فقط جلو رفتن مجاز است:
+git pull --ff-only
+
+# اگر تیم Rebase را برای شاخهٔ شخصی ترجیح می‌دهد:
+# git pull --rebase</code></pre></article></div>
+        <div class="callout callout-green"><strong>توصیهٔ دقیق‌تر از «هر بار هر دو را بزن»</strong><p>در آغاز یک نوبت کار تیمی، ابتدا <code>git status</code> بزن و سپس وضعیت Remote را با <code>git fetch</code> تازه کن. بعد طبق سیاست تیم تصمیم بگیر Merge، Pull یا Rebase انجام بدهی. <code>git pull</code> خودش Fetch دارد؛ معمولاً لازم نیست بلافاصله قبلش یک Fetch تکراری اجرا کنی. همگام‌سازی منظم خوب است، اما هرگز کورکورانه یا بدون دیدن وضعیت محلی Pull نکن.</p></div>
+        <h3><code>git remote show</code> و <code>git remote update</code></h3>
+        <pre class="code-block"><code>git remote -v
+git remote show origin
+git remote update
+
+# ابتدا فقط پیش‌نمایش پاک‌سازی refهای منسوخ
+ git remote prune --dry-run origin
+# سپس در صورت اطمینان، پاک‌سازی واقعی
+git remote prune origin</code></pre>
+        <div class="term-grid"><div><b><code>git remote show origin</code></b><p>اطلاعات Remote، URLها، Branchهای دنبال‌شده و تنظیمات pull/push را نمایش می‌دهد؛ در صورت اتصال، ممکن است وضعیت شاخه‌ها را هم مقایسه کند.</p></div><div><b><code>git remote update</code></b><p>اطلاعات را از Remoteهای تنظیم‌شده (یا گروه مشخص‌شده) Fetch می‌کند؛ تغییرها را داخل شاخهٔ جاری ادغام نمی‌کند.</p></div><div><b><code>git remote prune origin</code></b><p>Remote-tracking refهای منسوخ مربوط به شاخه‌هایی را پاک می‌کند که از Remote حذف شده‌اند؛ شاخهٔ محلی واقعی را حذف نمی‌کند. با <code>git remote prune --dry-run origin</code> ابتدا فقط پیش‌نمایش بگیر.</p></div></div>
         <h3>دستورات Remote پرکاربرد</h3>
         <div class="command-list"><div class="command-row"><code>git remote -v</code><p>آدرس Remoteهای ثبت‌شده را نشان می‌دهد.</p><button class="copy-btn" data-copy="git remote -v">کپی</button></div><div class="command-row"><code>git clone &lt;url&gt;</code><p>مخزن را دریافت و یک پوشهٔ کاری محلی ایجاد می‌کند.</p><button class="copy-btn" data-copy="git clone <url>">کپی</button></div><div class="command-row"><code>git fetch origin</code><p>اطلاعات و Commitهای جدید Remote را می‌گیرد؛ ادغام در شاخهٔ فعلی را خودکار انجام نمی‌دهد.</p><button class="copy-btn" data-copy="git fetch origin">کپی</button></div><div class="command-row"><code>git pull</code><p>تغییرات Remote را می‌گیرد و طبق تنظیمات، Merge یا Rebase انجام می‌دهد. پیش از استفاده، وضعیت فایل‌های محلی را ببین.</p><button class="copy-btn" data-copy="git pull">کپی</button></div><div class="command-row"><code>git push -u origin feature/login</code><p><code>-u</code> یا <code>--set-upstream</code> شاخهٔ راه دور بالادست را تنظیم می‌کند؛ Pushهای بعدی ساده‌تر می‌شوند.</p><button class="copy-btn" data-copy="git push -u origin feature/login">کپی</button></div></div>
         <div id="github-collaboration-details" class="github-extra-grid">
@@ -204,8 +483,197 @@ git log --oneline --graph --decorate --all</code><button class="code-copy" data-
         <div class="callout callout-red"><strong>اطلاعات حساس را به مخزن نفرست.</strong><p>رمز عبور، API token، فایل <code>.env</code> واقعی و کلید خصوصی نباید در مخزن Commit شوند. Public بودن مخزن یعنی محتوا برای عموم قابل مشاهده است. اگر Secret را Push کردی، صرفاً حذف فایل از Commit بعدی کافی نیست؛ Secret را فوراً باطل/تعویض کن و طبق نیاز تاریخچه را پاک‌سازی کن.</p></div>
       </section>
 
+
+      <section class="chapter" id="github-explore" data-title="کل GitHub، Explore و Stars">
+        <div class="chapter-head"><span class="chapter-label">فصل 11 / شناخت پلتفرم</span><span class="scope-label scope-github">GitHub</span><span class="time-pill">۷ دقیقه</span></div>
+        <h2>GitHub یک پلتفرم برای ساختن و همکاری است</h2>
+        <p class="section-lead">Git تاریخچهٔ فایل‌ها و Commitها را مدیریت می‌کند؛ GitHub علاوه بر میزبانی مخزن Git، ابزارهایی برای گفت‌وگو، مدیریت کار، بازبینی کد، خودکارسازی، انتشار و پیدا کردن پروژه‌های دیگران دارد. همهٔ این امکانات وابسته به اجرای دستور Git نیستند.</p>
+        <div class="github-concepts">
+          <article><span class="concept-number">01</span><h3>صفحهٔ اصلی و Search</h3><p>در Home فعالیت‌ها و مخزن‌هایی را که دنبال می‌کنی می‌بینی. نوار Search برای پیدا کردن Repository، کد، Issue، Pull Request، کاربر و Organization است. از فیلترها برای محدود کردن نتیجه استفاده کن.</p></article>
+          <article><span class="concept-number">02</span><h3>پروفایل شخصی</h3><p>پروفایل جایی است که دیگران نام، معرفی، پروژه‌های مهم و فعالیت عمومی تو را می‌بینند. README پروفایل و مخزن‌های Pin شده می‌توانند نمونه‌کارهایت را نشان دهند؛ اطلاعات حساس یا شخصی را عمومی نکن.</p></article>
+          <article><span class="concept-number">03</span><h3>صفحهٔ Repository</h3><p>در Code فایل‌ها، Branchها، Commitها و README را می‌بینی. معمولاً تب‌های Issues، Pull requests، Actions، Projects، Wiki، Security و Insights هم وجود دارند؛ نمایش همهٔ تب‌ها به نوع مخزن، دسترسی‌ها و فعال‌بودن قابلیت بستگی دارد.</p></article>
+          <article><span class="concept-number">04</span><h3>Release و Tags</h3><p>Tag به یک نقطهٔ تاریخچه نام می‌دهد؛ Release معمولاً نسخهٔ قابل استفاده را با توضیحات، تغییرات و گاهی فایل‌های آمادهٔ دریافت معرفی می‌کند. برای فهم وضعیت نسخهٔ پایدار، بخش Releases را بررسی کن.</p></article>
+          <article><span class="concept-number">05</span><h3>Actions و Projects</h3><p>Actions می‌تواند تست و کارهای خودکار را اجرا کند. Projects برای مدیریت کارها با Viewهایی مثل Table و Board است و می‌تواند Issueها و Pull Requestها را کنار هم نمایش دهد.</p></article>
+          <article><span class="concept-number">06</span><h3>بقیهٔ امکانات</h3><p>Discussions برای گفت‌وگوی عمومی‌تر، Wiki برای مستندات، Security برای گزارش و پیگیری مسائل امنیتی، Packages برای انتشار بسته‌ها و Pages برای سایت ایستا هستند. Organization و Teams هم همکاری در سطح گروه/شرکت را مدیریت می‌کنند. برخی امکانات به پلن یا دسترسی وابسته‌اند.</p></article>
+          <article><span class="concept-number">07</span><h3>ابزارهای مکمل GitHub</h3><p>Codespaces محیط توسعهٔ ابری فراهم می‌کند؛ Copilot ابزار کمک برنامه‌نویسی با هوش مصنوعی است؛ Gists برای به‌اشتراک‌گذاری قطعه‌کدهای کوچک مفید است؛ Marketplace هم Actions و ابزارهای متصل به GitHub را ارائه می‌کند. Inbox اعلان‌ها را یکجا جمع می‌کند و GitHub CLI امکان مدیریت بسیاری از کارها را از ترمینال می‌دهد. دسترسی هر ابزار می‌تواند به تنظیمات، حساب یا پلن وابسته باشد.</p></article>
+        </div>
+        <h3>Star، Watch، Fork و Follow چه تفاوتی دارند؟</h3>
+        <div class="status-table-wrap"><table class="status-table"><thead><tr><th>گزینه</th><th>معنایش</th><th>چه زمانی به کار می‌آید؟</th></tr></thead><tbody>
+          <tr><td><code>Star</code></td><td>علامت علاقه یا ذخیره کردن مخزن برای پیدا کردن دوباره؛ معمولاً قدردانی از سازنده هم هست.</td><td>وقتی پروژه برایت جالب است یا می‌خواهی بعداً برگردی سراغش. Star به‌تنهایی اعلان همهٔ تغییرها را فعال نمی‌کند.</td></tr>
+          <tr><td><code>Watch</code></td><td>عضویت در اعلان‌های مربوط به فعالیت مخزن؛ میزان اعلان‌ها به تنظیم انتخابی‌ات بستگی دارد.</td><td>وقتی می‌خواهی از Issueها، Pull Requestها یا فعالیت‌های مورد نظرت باخبر شوی.</td></tr>
+          <tr><td><code>Fork</code></td><td>ساخت نسخه‌ای از Repository زیر حساب یا فضای خودت در GitHub.</td><td>وقتی می‌خواهی پروژهٔ دیگران را تغییر بدهی و بعد تغییرها را با Pull Request پیشنهاد کنی.</td></tr>
+          <tr><td><code>Follow</code></td><td>دنبال کردن فعالیت عمومی یک کاربر.</td><td>وقتی می‌خواهی فعالیت‌ها و پروژه‌های فردی را در جامعهٔ GitHub بهتر پیدا کنی.</td></tr>
+        </tbody></table></div>
+        <div class="callout callout-blue"><strong>تعداد Star معیار قطعی کیفیت نیست.</strong><p>Star نشانه‌ای تقریبی از علاقه یا محبوبیت است. برای ارزیابی واقعی پروژه، README، مجوز استفاده، تست‌ها، فعالیت اخیر، Releaseها، Issueهای باز و پاسخ سازنده‌ها را هم بررسی کن.</p></div>
+        <h3>Explore و Trending؛ پروژه‌های دیگران را از کجا پیدا کنیم؟</h3>
+        <div class="two-column-cards"><article><h4><a class="text-link" href="https://github.com/explore" target="_blank" rel="noopener">GitHub Explore</a></h4><p>برای کشف موضوع‌ها، پروژه‌ها و جامعه‌های برنامه‌نویسی. یک موضوع مثل <code>python</code>، <code>django</code>، <code>machine-learning</code> یا <code>developer-tools</code> را دنبال کن و پروژه‌های مرتبط را بررسی کن.</p></article><article><h4><a class="text-link" href="https://github.com/trending" target="_blank" rel="noopener">GitHub Trending</a></h4><p>برای دیدن مخزن‌هایی که در بازهٔ زمانی انتخاب‌شده بیشتر مورد توجه قرار گرفته‌اند؛ می‌توانی زبان برنامه‌نویسی و بازهٔ روزانه/هفتگی/ماهانه را هم فیلتر کنی. محبوبیت مقطعی الزاماً به معنی مناسب بودن برای پروژهٔ تو نیست.</p></article></div>
+        <h3>چطور یک Repository ناشناس را بررسی کنیم؟</h3>
+        <ol class="step-list"><li>README را بخوان: پروژه چه کاری انجام می‌دهد و چطور نصب و اجرا می‌شود؟</li><li>مجوز پروژه (License) را پیدا کن؛ Public بودن به معنی اجازهٔ استفاده از هر نوع کپی‌رایت یا برند نیست.</li><li>فایل‌های مهم و زبان‌ها را بررسی کن؛ عدد زبان‌ها فقط سرنخ است، نه ارزیابی کیفیت.</li><li>آخرین Commitها، Releaseها و تاریخچهٔ تغییرات را ببین؛ پروژه ممکن است فعال، کم‌فعال یا متوقف شده باشد.</li><li>Issueها و Pull Requestهای باز را بخوان تا بفهمی باگ‌ها و بازخوردها چگونه مدیریت می‌شوند.</li><li>اگر Actions یا CI دارد، نتیجهٔ تست‌ها را بررسی کن؛ موفق بودن یک اجرا تضمین بی‌نقص بودن برنامه نیست.</li><li>قبل از مشارکت، راهنمای <code>CONTRIBUTING.md</code> و قوانین پروژه را بخوان؛ فقط اگر مجوز و شرایط مناسب‌اند، تغییر پیشنهاد کن.</li></ol>
+        <div class="callout callout-green"><strong>تمرین ۳ دقیقه‌ای در کلاس</strong><p>از GitHub Explore یا Trending یک مخزن مرتبط با Python پیدا کن. به یک همکلاسی بگو هدف پروژه چیست، آخرین Release یا Commit آن کی بوده، چه Licenseای دارد و از کجا می‌توان گزارش باگ یا پیشنهاد تغییر ثبت کرد.</p></div>
+      </section>
+
+      <section class="chapter" id="issues-workflow" data-title="Issues و پاسخ‌دادن به آن‌ها">
+        <div class="chapter-head"><span class="chapter-label">فصل 12 / مدیریت کار</span><span class="scope-label scope-github">GitHub</span><span class="time-pill">۸ دقیقه</span></div>
+        <h2>Issue؛ جایی برای تعریف و پیگیری کار</h2>
+        <p class="section-lead">Issue فقط برای باگ نیست؛ می‌تواند سؤال، پیشنهاد قابلیت، کار فنی یا بازخورد باشد. Issue مسئله را دنبال می‌کند؛ Commit تغییر را در تاریخچه ثبت می‌کند؛ Pull Request تغییر را برای بررسی و ادغام پیشنهاد می‌دهد.</p>
+        <h3>چطور از UI یک Issue درست بسازیم؟</h3>
+        <ol class="step-list"><li>وارد صفحهٔ مخزن شو و تب <b>Issues</b> را باز کن؛ سپس <b>New issue</b> را بزن. اگر Issueها در این مخزن غیرفعال‌اند یا دسترسی نداری، امکان ساختن Issue نداری.</li><li>عنوان کوتاه و مشخص بنویس؛ مثلاً <code>Bug: empty search query returns 500</code>، نه «مشکل دارد».</li><li>در متن توضیح بده چه اتفاقی افتاده، انتظار چه بوده و چطور می‌توان مشکل را دوباره ایجاد کرد.</li><li>در بخش کناری، در صورت نیاز <b>Labels</b>، <b>Assignees</b>، <b>Projects</b>، <b>Milestone</b> و نوع Issue را انتخاب کن. همهٔ این گزینه‌ها در همهٔ مخزن‌ها فعال نیستند.</li><li><b>Submit new issue</b> را بزن. بعداً می‌توانی با Commentها توضیح اضافه کنی، سؤال بپرسی یا وضعیت را به‌روز کنی.</li></ol>
+        <h3>الگوی خوب برای گزارش باگ</h3>
+        <pre class="code-block"><code>## What happened?
+شرح کوتاه اتفاقی که افتاد
+
+## Expected behavior
+انتظار داشتم چه اتفاقی بیفتد؟
+
+## Steps to reproduce
+1. این صفحه را باز کن
+2. مقدار خالی وارد کن
+3. دکمه را بزن
+
+## Environment
+OS / Browser / App version
+
+## Logs or screenshots
+اطلاعات لازم، بدون رمز، Token یا دادهٔ شخصی</code><button class="code-copy" data-copy="## What happened?\nشرح کوتاه اتفاقی که افتاد\n\n## Expected behavior\nانتظار داشتم چه اتفاقی بیفتد؟\n\n## Steps to reproduce\n1. این صفحه را باز کن\n2. مقدار خالی وارد کن\n3. دکمه را بزن\n\n## Environment\nOS / Browser / App version\n\n## Logs or screenshots\nاطلاعات لازم، بدون رمز، Token یا دادهٔ شخصی">کپی</button></pre>
+        <h3>چطور به Issue دیگران پاسخ بدهیم؟</h3>
+        <div class="two-column-cards"><article><h4>اگر گزارش‌دهنده هستی</h4><p>به پرسش‌های سازنده پاسخ بده، مراحل بازتولید را دقیق کن، نسخهٔ نرم‌افزار و پیام خطا را اضافه کن و وقتی مشکل برطرف شد نتیجه را تأیید کن. برای کمک، رمز یا Token واقعی را در Issue عمومی نگذار.</p><pre class="code-block"><code>Thanks for looking into this.
+I can reproduce it on version 1.2.0.
+Steps: ...
+Expected: ...
+Actual: ...</code></pre></article><article><h4>اگر نگه‌دارندهٔ پروژه هستی</h4><p>با احترام پاسخ بده؛ مشخص کن مشکل را تأیید کرده‌ای یا به اطلاعات بیشتر نیاز داری. اگر تکراری است به Issue اصلی لینک بده. اگر اصلاحی در راه است، Branch یا Pull Request مرتبط را وصل کن.</p><pre class="code-block"><code>Thanks for reporting this.
+I can reproduce the issue.
+Could you share the app version and steps?
+Please remove secrets from logs.</code></pre></article></div>
+        <h3>ارتباط Issue، Branch، Commit و Pull Request</h3>
+        <p>داخل Commentهای UI می‌توانی با نوشتن <code>#42</code> به Issue شمارهٔ ۴۲ در همان مخزن اشاره کنی. این کار برای پیدا کردن بحث مرتبط است؛ به‌تنهایی به معنی حل شدن Issue نیست.</p>
+        <p>در عنوان Commit، شمارهٔ Issue را می‌توان برای زمینه آورد:</p>
+        <pre class="code-block"><code>fix: handle empty search query (#42)</code></pre>
+        <p>این عنوان Issue را قابل‌ردیابی می‌کند، اما برای بستن خودکار از واژهٔ بستن استفاده کن. روش پیشنهادی این است که توضیح Pull Request به شکل زیر باشد:</p>
+        <pre class="code-block"><code>Fixes #42
+
+## What changed?
+Handle an empty search query without raising an error.
+
+## Tests
+- Added a test for an empty query
+- Ran the related test suite</code><button class="code-copy" data-copy="Fixes #42\n\n## What changed?\nHandle an empty search query without raising an error.\n\n## Tests\n- Added a test for an empty query\n- Ran the related test suite">کپی</button></pre>
+        <p>واژه‌های <code>close</code>، <code>closes</code>، <code>closed</code>، <code>fix</code>، <code>fixes</code>، <code>fixed</code>، <code>resolve</code>، <code>resolves</code> و <code>resolved</code> پشتیبانی می‌شوند. مثلاً <code>Closes #42</code> یا <code>Fixes #42</code>. اگر Issue در مخزن دیگری است، قالبی مانند <code>Fixes OWNER/REPOSITORY#42</code> را به‌کار ببر.</p>
+        <div class="callout callout-amber"><strong>نکتهٔ دقیق دربارهٔ بستن خودکار</strong><p>برای گردش کار معمول، عبارت <code>Fixes #42</code> را در توضیح Pull Request بگذار و PR را به شاخهٔ پیش‌فرض (معمولاً <code>main</code>) هدف بگیر؛ با Merge شدن آن PR، Issue بسته می‌شود. واژهٔ بستن در پیام Commit هم می‌تواند Issue را ببندد، وقتی آن Commit به شاخهٔ پیش‌فرض ادغام شود. نوشتن صرفِ <code>#42</code> ارجاع می‌سازد، اما به‌تنهایی Issue را نمی‌بندد.</p></div>
+        <h3>Issue با Pull Request چه فرقی دارد؟</h3>
+        <div class="term-grid"><div><b>Issue</b><p>«چه مشکلی داریم یا چه کاری باید انجام شود؟» محل ثبت مسئله، پرسش و گفت‌وگو.</p></div><div><b>Pull Request</b><p>«چه تغییری پیشنهاد می‌کنم؟» محل مرور Diff، نظر دادن روی کد، بررسی تست‌ها و تصمیم برای Merge.</p></div><div><b>Project</b><p>«چند کار چه وضعیتی دارند؟» نمای مدیریت و اولویت‌بندی Issueها و PRهای متعدد.</p></div></div>
+      </section>
+
+      <section class="chapter" id="remote-deep" data-title="Remoteها به‌صورت کامل">
+        <div class="chapter-head"><span class="chapter-label">فصل 13 / اتصال مخزن‌ها</span><span class="scope-label scope-both">Git + GitHub</span><span class="time-pill">۸ دقیقه</span></div>
+        <h2>Remote چیست و چرا فقط یک آدرس ساده نیست؟</h2>
+        <p class="section-lead">Remote یک نام محلی برای آدرس یک مخزن دیگر است. معمولاً این مخزن روی GitHub است، اما می‌تواند روی GitLab، سرور شخصی یا حتی یک مسیر دیگر روی دیسک هم باشد. هر مخزن محلی می‌تواند صفر، یک یا چند Remote داشته باشد.</p>
+        <div class="github-concepts"><article><span class="concept-number">01</span><h3><code>origin</code></h3><p>نام قراردادی و رایج Remote اصلی است. وقتی از GitHub مخزنی را با <code>git clone</code> دریافت می‌کنی، Git معمولاً Remote همان مخزن را با نام <code>origin</code> ثبت می‌کند. این نام اجباری نیست.</p></article><article><span class="concept-number">02</span><h3><code>upstream</code></h3><p>در کار با Fork، معمولاً <code>origin</code> به Fork زیر حساب خودت و <code>upstream</code> به مخزن اصلی پروژه اشاره می‌کند. این هم یک قرارداد رایج است، نه نامی ویژه در Git.</p></article><article><span class="concept-number">03</span><h3>Remote-tracking Branch</h3><p>نامی مانند <code>origin/main</code> تصویری از وضعیت آخرین Fetch شدهٔ شاخهٔ <code>main</code> در Remote است. خود این نام Branch محلی برای ویرایش مستقیم نیست.</p></article><article><span class="concept-number">04</span><h3>Upstream Branch</h3><p>شاخه‌ای در Remote که Branch محلی با آن ارتباط دارد؛ تنظیم آن کمک می‌کند بدون نوشتن نام Remote و Branch در هر بار Push/Pull، فرمان ساده‌تری اجرا کنی.</p></article></div>
+        <h3>فهرست و بررسی Remoteها</h3>
+        <pre class="code-block"><code>git remote
+ git remote -v
+ git remote show origin
+ git branch -r
+ git branch -vv</code><button class="code-copy" data-copy="git remote\ngit remote -v\ngit remote show origin\ngit branch -r\ngit branch -vv">کپی</button></pre>
+        <div class="term-grid"><div><b><code>git remote</code></b><p>فقط نام Remoteهای ثبت‌شده را نشان می‌دهد.</p></div><div><b><code>git remote -v</code></b><p>آدرس Fetch و Push هر Remote را نمایش می‌دهد؛ برای بررسی اشتباه بودن URL بسیار مفید است.</p></div><div><b><code>git remote show origin</code></b><p>اطلاعات Remote و شاخه‌های مرتبط را نشان می‌دهد؛ در صورت نیاز اطلاعات جدیدی را هم پرس‌وجو می‌کند.</p></div><div><b><code>git branch -r</code></b><p>Remote-tracking Branchهای شناخته‌شده را فهرست می‌کند.</p></div><div><b><code>git branch -vv</code></b><p>برای شاخه‌های محلی، upstream تنظیم‌شده و وضعیت جلو/عقب بودن را نشان می‌دهد، بر اساس آخرین اطلاعات دریافت‌شده.</p></div><div><b><code>git fetch --all</code></b><p>از Remoteهای تنظیم‌شده اطلاعات دریافت می‌کند؛ خودش تغییرها را در شاخهٔ فعلی ادغام نمی‌کند.</p></div></div>
+        <h3>افزودن، اصلاح، تغییر نام و حذف یک Remote</h3>
+        <pre class="code-block"><code># افزودن Remote
+ git remote add origin https://github.com/USERNAME/REPOSITORY.git
+
+# اصلاح URL موجود
+ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+
+# تغییر نام Remote
+ git remote rename origin personal
+
+# حذف آدرس از پیکربندی محلی
+ git remote remove personal
+
+# بررسی نتیجه
+ git remote -v</code><button class="code-copy" data-copy="git remote add origin https://github.com/USERNAME/REPOSITORY.git\ngit remote set-url origin git@github.com:USERNAME/REPOSITORY.git\ngit remote rename origin personal\ngit remote remove personal\ngit remote -v">کپی</button></pre>
+        <div class="callout callout-red"><strong>حذف Remote، Repository روی سایت را حذف نمی‌کند.</strong><p><code>git remote remove origin</code> فقط اتصال ذخیره‌شده در مخزن محلی تو را پاک می‌کند. Repository روی GitHub همچنان باقی می‌ماند. برای حذف مخزن آنلاین باید از UI سایت و با دقت جداگانه اقدام کرد.</p></div>
+        <h3>سناریوی مهم: همگام شدن با مخزن اصلی پس از Fork</h3>
+        <p>وقتی پروژهٔ شخص دیگری را Fork کرده‌ای، می‌خواهی تغییرهای جدید مخزن اصلی را هم دریافت کنی. ابتدا آدرس واقعی مخزن اصلی را جایگزین کن:</p>
+        <pre class="code-block"><code># origin معمولاً به Fork خودت وصل است
+git remote -v
+
+# فقط یک بار آدرس مخزن اصلی را ثبت کن
+git remote add upstream https://github.com/ORIGINAL_OWNER/PROJECT.git
+
+# اطلاعات جدید مخزن اصلی را بگیر
+git fetch upstream
+
+# اگر تیم چنین روشی را تأیید می‌کند، تغییرها را روی main محلی ادغام کن
+git switch main
+git merge upstream/main
+
+# در صورت نیاز، main به‌روز شده را به Fork خودت بفرست
+git push origin main</code><button class="code-copy" data-copy="git remote -v\ngit remote add upstream https://github.com/ORIGINAL_OWNER/PROJECT.git\ngit fetch upstream\ngit switch main\ngit merge upstream/main\ngit push origin main">کپی</button></pre>
+        <p class="hint-text">اگر مخزن اصلی یا Fork شما از نام شاخه‌ای غیر از <code>main</code> استفاده می‌کند، نام درست را جایگزین کن. در پروژهٔ واقعی، پیش از Merge کردن تغییرهای upstream، وضعیت محلی و راهنمای مشارکت پروژه را بخوان.</p>
+        <h3>اشتباه‌های رایج Remote و راه تشخیص</h3>
+        <div class="scenario-cards"><article><span class="scenario-label">خطا ۱</span><h4><code>remote origin already exists</code></h4><p>Remote با نام origin قبلاً ثبت شده است.</p><details><summary>راه‌حل</summary><pre><code>git remote -v</code></pre><p>اگر URL غلط است از <code>git remote set-url origin NEW_URL</code> استفاده کن؛ اگر درست است نیازی به افزودن دوباره نیست.</p></details></article><article><span class="scenario-label">خطا ۲</span><h4><code>Repository not found</code></h4><p>URL، نام مالک/مخزن، دسترسی یا احراز هویت ممکن است مشکل داشته باشد.</p><details><summary>راه‌حل</summary><pre><code>git remote -v</code></pre><p>URL صفحهٔ مخزن را بررسی کن و مطمئن شو اجازهٔ دسترسی داری. اگر Private است، باید با حساب مجاز و روش احراز هویت مناسب وصل شوی.</p></details></article><article><span class="scenario-label">خطا ۳</span><h4><code>rejected (fetch first)</code></h4><p>Remote تغییرهایی دارد که مخزن محلی هنوز دریافت نکرده است.</p><details><summary>راه‌حل</summary><pre><code>git status
+git fetch origin
+git log --oneline --graph --decorate HEAD..origin/main</code></pre><p>تفاوت‌ها را بررسی کن، تغییر محلی را حفظ کن و طبق سیاست تیم همگام شو. برای رفع این خطا بدون بررسی، Force Push نزن.</p></details></article></div>
+        <div class="callout callout-blue"><strong>قانون ساده برای کار با Remoteها</strong><p><code>fetch</code> اطلاعات را می‌آورد؛ <code>pull</code> دریافت را با Merge یا Rebase ترکیب می‌کند؛ <code>push</code> Commitهای محلی را به Remote می‌فرستد. اگر مطمئن نیستی ابتدا <code>git status</code> و <code>git remote -v</code> بزن و بعد تصمیم بگیر.</p></div>
+      </section>
+
+      <section class="chapter" id="start-to-finish" data-title="از ساخت حساب تا تغییر پروژه">
+        <div class="chapter-head"><span class="chapter-label">فصل 14 / مسیر عملی کامل</span><span class="scope-label scope-both">Git + GitHub</span><span class="time-pill">۱۰ تا ۱۵ دقیقه</span></div>
+        <h2>از صفر تا تغییر یک پروژه؛ قدم‌به‌قدم</h2>
+        <p class="section-lead">این فصل را مثل یک اجرای زنده ارائه کن. اول حساب GitHub می‌سازیم، بعد یک Repository می‌سازیم، آن را روی کامپیوتر می‌گیریم، یک فایل را تغییر می‌دهیم و تغییر را با Commit و Push به GitHub می‌فرستیم.</p>
+        <div class="callout callout-blue"><strong>فرق ابزارها را در طول مسیر مشخص نگه دار</strong><p>ساخت حساب و Repository در سایت، کار GitHub است. ویرایش فایل، بررسی تغییر، Stage و Commit روی کامپیوتر با Git انجام می‌شود. Clone و Push ارتباط بین Git محلی و GitHub را برقرار می‌کنند.</p></div>
+        <h3>مرحلهٔ ۱ — ساخت حساب GitHub</h3>
+        <ol class="step-list"><li>به <a class="text-link" href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a> برو و مراحل ساخت حساب را انجام بده.</li><li>ایمیل را تأیید کن و اگر سایت تأیید امنیتی خواست، مراحل را کامل کن.</li><li>نام کاربری را با دقت انتخاب کن؛ معمولاً در URL پروفایل و پروژه‌ها دیده می‌شود.</li><li>برای امنیت، رمز منحصربه‌فرد و در صورت امکان Passkey یا Two-factor authentication فعال کن.</li></ol>
+        <div class="callout callout-amber"><strong>یادآوری</strong><p>رمز حساب GitHub را داخل دستورهای Git، کد یا فایل پروژه قرار نده. <code>git config user.name</code> و <code>user.email</code> اطلاعاتی هستند که در Commit ثبت می‌شوند؛ آن‌ها نام کاربری و رمز ورود GitHub نیستند.</p></div>
+        <h3>مرحلهٔ ۲ — ساخت Repository روی GitHub</h3>
+        <ol class="step-list"><li>پس از ورود، از دکمهٔ <b>New repository</b> استفاده کن.</li><li>نامی ساده مانند <code>git-class-demo</code> انتخاب کن.</li><li>برای تمرین کلاسی، Public یا Private را آگاهانه انتخاب کن. Public یعنی دیگران می‌توانند محتوای مخزن را ببینند.</li><li>برای ساده نگه‌داشتن اولین تمرین، می‌توانی README را در همان صفحه بسازی؛ این کار یک Commit اولیه روی GitHub ایجاد می‌کند.</li><li>دکمهٔ <b>Create repository</b> را بزن و URL مخزن را کپی کن.</li></ol>
+        <p class="hint-text">اگر Repository را همراه README ساخته‌ای، آن را Clone کن؛ این مسیر برای شروع ساده‌تر است. اگر مخزن خالی ساخته‌ای، می‌توانی یک پوشهٔ محلی را با <code>git init</code> آغاز و سپس Remote را اضافه کنی.</p>
+        <h3>مرحلهٔ ۳ — نصب و بررسی Git روی کامپیوتر</h3>
+        <p>در Windows می‌توانی PowerShell یا Git Bash باز کنی؛ در macOS و Linux از Terminal استفاده کن.</p>
+        <pre class="code-block"><code>git --version
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --list --show-origin</code></pre>
+        <p>نام و ایمیل نمونه را با اطلاعات خودت عوض کن. این تنظیمات معمولاً یک بار برای هر حساب کاربری سیستم انجام می‌شوند؛ در پروژهٔ خاص می‌توان تنظیم محلی متفاوت داشت.</p>
+        <h3>مرحلهٔ ۴ — Clone کردن Repository</h3>
+        <pre class="code-block"><code>git clone https://github.com/USERNAME/git-class-demo.git
+cd git-class-demo
+git status</code></pre>
+        <p>به‌جای <code>USERNAME</code> نام کاربری خودت و به‌جای نام مخزن، URL واقعی را بگذار. <code>clone</code> فایل‌های پروژه و تاریخچهٔ Git را به کامپیوتر می‌آورد و معمولاً Remote با نام <code>origin</code> را تنظیم می‌کند.</p>
+        <h3>مرحلهٔ ۵ — یک تغییر واقعی ایجاد کن</h3>
+        <p>فایل <code>README.md</code> را با ویرایشگر باز کن و یک خط اضافه کن؛ مثلاً <code>این پروژه برای تمرین Git در کلاس ساخته شده است.</code> سپس ترمینال را باز کن:</p>
+        <pre class="code-block"><code>git status
+git diff</code></pre>
+        <p><code>git status</code> می‌گوید کدام فایل تغییر کرده؛ <code>git diff</code> نشان می‌دهد دقیقاً چه خطی حذف یا اضافه شده. اینجا از دانشجوها بپرس: «هنوز چیزی روی GitHub فرستاده‌ایم؟» پاسخ: خیر، فقط فایل محلی تغییر کرده است.</p>
+        <h3>مرحلهٔ ۶ — Stage و Commit</h3>
+        <pre class="code-block"><code>git add README.md
+git diff --staged
+git status
+git commit -m "docs: update project README"
+git log --oneline -5</code></pre>
+        <p><code>git add</code> تغییر را برای Commit بعدی انتخاب می‌کند. <code>git diff --staged</code> آخرین بار تغییر آمادهٔ ثبت را نشان می‌دهد. <code>git commit</code> آن را در تاریخچهٔ محلی ثبت می‌کند؛ هنوز به GitHub ارسال نشده است.</p>
+        <h3>مرحلهٔ ۷ — Push و بررسی در GitHub</h3>
+        <pre class="code-block"><code>git push</code></pre>
+        <p>چون مخزن را با <code>git clone</code> گرفته‌ای، معمولاً شاخهٔ محلی از قبل به شاخهٔ Remote وصل است و <code>git push</code> کافی است. اگر Git از تو احراز هویت خواست، از روش امن و مورد پشتیبانی سیستم استفاده کن؛ رمز حساب را در دستور ننویس.</p>
+        <ol class="step-list"><li>صفحهٔ Repository را در مرورگر Refresh کن.</li><li>README را باز کن و خط جدید را ببین.</li><li>بخش Commits را باز کن و پیام <code>docs: update project README</code> را پیدا کن.</li></ol>
+        <div class="callout callout-green"><strong>این نقطهٔ پایان چرخه است</strong><p>فایل را تغییر دادیم، وضعیت را دیدیم، Diff را بررسی کردیم، تغییر را Stage کردیم، Commit ساختیم و آن را Push کردیم. همین چرخه، پایهٔ بسیاری از کارهای روزمره با Git است.</p></div>
+        <h3>مرحلهٔ ۸ — تغییر را در Branch جدا انجام بده</h3>
+        <pre class="code-block"><code>git status
+git switch -c docs/add-usage
+# فایل README.md را تغییر بده
+git diff
+git add README.md
+git diff --staged
+git commit -m "docs: add usage instructions"
+git push -u origin docs/add-usage</code></pre>
+        <p>این بار تغییر در Branch جداگانه است. <code>-u</code> شاخهٔ Remote بالادست را تنظیم می‌کند. در GitHub معمولاً دکمهٔ <b>Compare & pull request</b> پیشنهاد می‌شود؛ با آن Pull Request بساز، تغییرها را بررسی کن و پس از Review طبق سیاست پروژه Merge کن.</p>
+        <div class="term-grid"><div><b>Commit</b><p>تغییر را در تاریخچهٔ محلی ثبت می‌کند.</p></div><div><b>Push</b><p>Commitهای محلی را به Remote می‌فرستد.</p></div><div><b>Pull Request</b><p>در GitHub راهی برای پیشنهاد، بحث و بررسی تغییرها پیش از ادغام است.</p></div></div>
+        <h3>اگر پروژه از قبل وجود دارد</h3>
+        <p>اگر قرار است در پروژهٔ موجود مشارکت کنی، اول راهنمای پروژه و دسترسی‌ها را بررسی کن. اگر اجازهٔ Push مستقیم نداری، معمولاً Fork می‌سازی، Fork خودت را Clone می‌کنی، Branch جدا می‌سازی، Commit و Push می‌کنی و سپس Pull Request را به مخزن اصلی پیشنهاد می‌دهی.</p>
+        <div class="callout callout-red"><strong>سه اشتباه رایج در اجرای زنده</strong><p>۱) فراموش کردن اینکه Commit محلی است و تا Push روی GitHub نمی‌رود. ۲) Stage کردن فایل‌های حساس مثل <code>.env</code> یا Token؛ پیش از Commit حتماً <code>git status</code> و <code>git diff --staged</code> را ببین. ۳) اجرای <code>git pull</code> کورکورانه وقتی تغییر محلی داری؛ اول <code>git status</code> بزن و روش تیم را رعایت کن.</p></div>
+      </section>
+
       <section class="chapter" id="scenarios" data-title="سناریو و آزمون کلاسی">
-        <div class="chapter-head"><span class="chapter-label">فصل 07 / تعامل</span><span class="time-pill">۵ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 15 / تعامل</span><span class="scope-label scope-both">Git + GitHub</span><span class="time-pill">۵ دقیقه</span></div>
         <h2>قبل از جواب، وضعیت را تحلیل کن</h2>
         <p class="section-lead">این پرسش‌ها را وسط ارائه مطرح کن. برای هر مورد اول از کلاس جواب بگیر و بعد توضیح را باز کن.</p>
         <div class="quiz-container" id="quizContainer">
@@ -215,6 +683,10 @@ git log --oneline --graph --decorate --all</code><button class="code-copy" data-
           <div class="quiz-controls"><button class="button button-outline" id="quizPrev" type="button" disabled>قبلی</button><button class="button button-primary" id="quizNext" type="button">سؤال بعدی ←</button></div>
           <div class="quiz-score" id="quizScore" hidden></div>
         </div>
+        <details class="answer-key"><summary>پاسخ‌نامهٔ فعالیت کلاسی (برای مدرس)</summary>
+          <ol class="step-list"><li><b>فایل را تغییر داده‌ام، اما Add نکرده‌ام.</b> تغییر جدید وارد Commit نمی‌شود؛ Git فقط تغییرهای Stage شده را ثبت می‌کند. برای بررسی: <code>git status</code> و <code>git diff</code>.</li><li><b>Commit کردم ولی Push نکردم.</b> Commit فعلاً در تاریخچهٔ محلی است و لزوماً روی GitHub نیست. برای ارسال، طبق Branch و Remote درست از <code>git push</code> استفاده می‌شود.</li><li><b>چرا Branch جدا می‌سازیم؟</b> تا قابلیت یا اصلاح از شاخهٔ اصلی جدا باشد، مستقل بررسی شود و بعد از تست با Merge یا Pull Request ادغام شود.</li><li><b>هنگام Merge، دو تغییر ناسازگار داریم.</b> هر دو نسخه را بررسی می‌کنیم، محتوای درست را انتخاب یا ترکیب می‌کنیم، نشانگرهای Conflict را حذف می‌کنیم، فایل را Stage می‌کنیم، تست می‌گیریم و <code>git status</code> را بررسی می‌کنیم.</li><li><b>Commit اشتباه در شاخهٔ مشترک Push شده است.</b> معمولاً <code>git revert &lt;hash&gt;</code> انتخاب امن‌تری است؛ Commit جدیدی می‌سازد که تغییر قبلی را خنثی می‌کند و تاریخچهٔ مشترک را بازنویسی نمی‌کند.</li></ol>
+          <p><b>پاسخ سناریوهای اضافه:</b> الف) <code>git restore --staged path/to/file</code> فایل را از Stage خارج می‌کند، بدون اینکه معمولاً تغییر داخل آن را پاک کند. ب) برای Commit اشتباهِ منتشرشده از <code>git revert</code> استفاده کن. ج) پیش از Pull وضعیت را با <code>git status</code> و <code>git diff</code> بررسی و سپس <code>git fetch origin</code> اجرا کن؛ بعد با آگاهی تصمیم بگیر.</p>
+        </details>
         <h3>سه سناریوی واقعی دیگر</h3>
         <div class="scenario-cards"><article><span class="scenario-label">سناریو A</span><h4>فایل اشتباه Stage شده</h4><p>هنوز Commit نکرده‌ای و فقط می‌خواهی فایل را از Stage خارج کنی، نه اینکه تغییرهای داخل آن پاک شوند.</p><details><summary>راهکار</summary><pre><code>git restore --staged path/to/file</code></pre><p>بعد <code>git status</code> بزن. این کار تغییر را از Stage خارج می‌کند؛ معمولاً فایل را به حالت Modified برمی‌گرداند.</p></details></article><article><span class="scenario-label">سناریو B</span><h4>Commit اشتباه قبلاً Push شده</h4><p>تاریخچه را بازنویسی نکن؛ به‌ویژه وقتی بقیه هم از شاخه استفاده می‌کنند.</p><details><summary>راهکار</summary><pre><code>git log --oneline
 git revert &lt;commit-hash&gt;</code></pre><p><code>revert</code> یک Commit جدید می‌سازد که تغییر قبلی را معکوس می‌کند. قبل از اجرا Commit درست را شناسایی کن.</p></details></article><article><span class="scenario-label">سناریو C</span><h4>قبل از Pull تغییر محلی داری</h4><p>نمی‌دانی تغییر محلی با تغییرهای تیم تداخل دارد یا نه.</p><details><summary>راهکار</summary><pre><code>git status
@@ -229,7 +701,7 @@ git stash pop</code><button class="code-copy" data-copy='git stash push -m "work
 </section>
 
       <section class="chapter" id="publish" data-title="انتشار با GitHub Pages">
-        <div class="chapter-head"><span class="chapter-label">فصل 08 / ارائه در وب</span><span class="time-pill">۳ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 16 / انتشار در وب</span><span class="scope-label scope-github">GitHub Pages</span><span class="time-pill">۳ دقیقه</span></div>
         <h2>چطور همین وب‌بوک را منتشر کنی؟</h2>
         <p class="section-lead">این پروژه فقط HTML، CSS و JavaScript سمت مرورگر است؛ برای نمایش آن به سرور Python یا Node.js نیاز نداری. GitHub Pages می‌تواند فایل‌های استاتیک را منتشر کند.</p>
         <div class="publish-checklist"><div class="publish-step"><span>01</span><div><b>مخزن جدید بساز</b><p>در GitHub یک Repository بساز. برای ساده‌ترین مسیر می‌توانی آن را Public انتخاب کنی. در استفادهٔ معمول، سایت Pages را عمومی فرض کن؛ خصوصی بودن Repository به‌تنهایی آن را خصوصی نمی‌کند و انتشار خصوصی به پلن و تنظیمات دسترسی وابسته است.</p></div></div><div class="publish-step"><span>02</span><div><b>فایل‌های پروژه را آپلود کن</b><p><code>index.html</code>، <code>styles.css</code>، <code>script.js</code> و فایل‌های متنی را در ریشهٔ مخزن قرار بده.</p></div></div><div class="publish-step"><span>03</span><div><b>بخش Pages را باز کن</b><p>Repository → <b>Settings</b> → <b>Pages</b> → بخش Build and deployment.</p></div></div><div class="publish-step"><span>04</span><div><b>منبع انتشار را تنظیم کن</b><p>در Source گزینهٔ <b>Deploy from a branch</b> را انتخاب کن؛ Branch را <code>main</code> و پوشه را <code>/(root)</code> قرار بده، سپس Save کن.</p></div></div><div class="publish-step"><span>05</span><div><b>لینک انتشار را باز کن</b><p>پس از پایان Build، آدرس سایت در همان بخش Pages ظاهر می‌شود. اولین انتشار ممکن است چند دقیقه زمان ببرد.</p></div></div></div>
@@ -243,7 +715,7 @@ git push -u origin main</code><button class="code-copy" data-copy='git init -b m
       </section>
 
       <section class="chapter" id="reference" data-title="برگهٔ تقلب و منابع">
-        <div class="chapter-head"><span class="chapter-label">فصل 09 / مرور سریع</span><span class="time-pill">۲ دقیقه</span></div>
+        <div class="chapter-head"><span class="chapter-label">فصل 17 / مرور سریع</span><span class="scope-label scope-both">Git + GitHub</span><span class="time-pill">۵ دقیقه</span></div>
         <h2>برگهٔ تقلب: پرکاربردترین دستورها</h2>
         <p class="section-lead">این جدول را می‌توانی روز ارائه روی پرده نگه داری یا پس از کلاس به دانشجویان بدهی.</p>
         <div class="cheatsheet-wrap"><table class="cheatsheet"><thead><tr><th>کار</th><th>دستور</th><th>یادآوری</th></tr></thead><tbody>
@@ -259,8 +731,8 @@ git push origin v1.0.0</code><button class="code-copy" data-copy='git tag&#10;gi
 git st</code><button class="code-copy" data-copy='git config --global alias.st status&#10;git st'>کپی</button></pre><p>Alias جای یادگیری فرمان اصلی را نمی‌گیرد؛ فقط تایپ روزمره را کوتاه می‌کند.</p></article><article><span class="concept-number">03</span><h3>Hooks و Attributes</h3><p>Hook اسکریپتی است که در رویدادی مثل <code>pre-commit</code> اجرا می‌شود. فایل‌های Hook معمولاً داخل <code>.git/hooks</code> مخزن محلی هستند و به شکل عادی همراه Clone به دیگران منتقل نمی‌شوند.</p><p><code>.gitattributes</code> می‌تواند رفتار فایل‌ها را برای Git مشخص کند؛ مثلاً مدیریت پایان خطوط یا تفاوت‌نمایی برخی فایل‌ها.</p><p><strong>قانون تیمی را فقط به Hook محلی نسپار.</strong> برای بررسی الزامی از CI، تنظیمات حفاظت شاخه یا قواعد مخزن هم استفاده کن.</p></article></div>
         <div class="callout callout-amber"><strong>نکتهٔ نسخه‌گذاری</strong><p>Branch مسیری برای ادامهٔ کار است؛ Tag معمولاً نامی پایدار برای یک نقطه از تاریخچه، مثل نسخهٔ منتشرشده. این دو کاربرد متفاوتی دارند.</p></div>
         <h3>منابع رسمی برای مطالعهٔ بیشتر</h3>
-        <div class="resources-list"><a href="https://git-scm.com/book/fa/v2" target="_blank" rel="noopener"><span class="resource-symbol">G</span><span><b>کتاب Pro Git — فارسی</b><small>مدل ذهنی، ثبت تغییرات، تاریخچه، Undo و Branching</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/book/fa/v2/%D9%85%D9%82%D8%AF%D9%85%D8%A7%D8%AA-%DA%AF%DB%8C%D8%AA-git-basics-chapter-%D8%AB%D8%A8%D8%AA-%D8%AA%D8%BA%DB%8C%DB%8C%D8%B1%D8%A7%D8%AA-%D8%AF%D8%B1-%D9%85%D8%AE%D8%B2%D9%86-Recording-Changes-to-the-Repository" target="_blank" rel="noopener"><span class="resource-symbol">02</span><span><b>Pro Git: ثبت تغییرات</b><small>Tracked، Untracked، Stage و Commit</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/book/fa/v2/%D8%A7%D9%86%D8%B4%D8%B9%D8%A7%D8%A8%E2%80%8C%DA%AF%DB%8C%D8%B1%DB%8C-%D9%88-%D8%A7%D8%AF%D8%BA%D8%A7%D9%85-Branches-in-a-Nutshell" target="_blank" rel="noopener"><span class="resource-symbol">03</span><span><b>Pro Git: شاخه‌ها</b><small>Branch، Merge و تاریخچهٔ موازی</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en" target="_blank" rel="noopener"><span class="resource-symbol github-resource">GH</span><span><b>GitHub Docs</b><small>مخزن، Pull Request، Issue، امنیت و قابلیت‌های GitHub</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/pull-requests/get-started/about-pull-requests" target="_blank" rel="noopener"><span class="resource-symbol">PR</span><span><b>About pull requests</b><small>چرایی و چگونگی Code Review</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener"><span class="resource-symbol">WEB</span><span><b>Creating a GitHub Pages site</b><small>مراحل رسمی انتشار سایت ایستا</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues" target="_blank" rel="noopener"><span class="resource-symbol">#</span><span><b>About GitHub Issues</b><small>ردیابی باگ‌ها، قابلیت‌ها و کار تیمی</small></span><span class="resource-arrow">↗</span></a></div>
-        <div class="closing-card"><span class="closing-bloom">✳</span><div><span class="eyebrow">حرف آخر</span><h2>کمتر حدس بزن؛ بیشتر بررسی کن.</h2><p>Git با فهمیدن تاریخچه و دیدن وضعیت قابل اعتماد می‌شود. لازم نیست همهٔ دستورها را حفظ کنی؛ باید بدانی چطور سؤال درست بپرسی و نتیجهٔ عملیاتت را بررسی کنی.</p></div><a class="button button-primary" href="#home">بازگشت به ابتدا ↑</a></div>
+        <div class="resources-list"><a href="https://git-scm.com/book/fa/v2" target="_blank" rel="noopener"><span class="resource-symbol">G</span><span><b>کتاب Pro Git — فارسی</b><small>مدل ذهنی، ثبت تغییرات، تاریخچه، Undo و Branching</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/book/fa/v2/%D9%85%D9%82%D8%AF%D9%85%D8%A7%D8%AA-%DA%AF%DB%8C%D8%AA-git-basics-chapter-%D8%AB%D8%A8%D8%AA-%D8%AA%D8%BA%DB%8C%DB%8C%D8%B1%D8%A7%D8%AA-%D8%AF%D8%B1-%D9%85%D8%AE%D8%B2%D9%86-Recording-Changes-to-the-Repository" target="_blank" rel="noopener"><span class="resource-symbol">02</span><span><b>Pro Git: ثبت تغییرات</b><small>Tracked، Untracked، Stage و Commit</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/book/fa/v2/%D8%A7%D9%86%D8%B4%D8%B9%D8%A7%D8%A8%E2%80%8C%DA%AF%DB%8C%D8%B1%DB%8C-%D9%88-%D8%A7%D8%AF%D8%BA%D8%A7%D9%85-Branches-in-a-Nutshell" target="_blank" rel="noopener"><span class="resource-symbol">03</span><span><b>Pro Git: شاخه‌ها</b><small>Branch، Merge و تاریخچهٔ موازی</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en" target="_blank" rel="noopener"><span class="resource-symbol github-resource">GH</span><span><b>GitHub Docs</b><small>مخزن، Pull Request، Issue، امنیت و قابلیت‌های GitHub</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/pull-requests/get-started/about-pull-requests" target="_blank" rel="noopener"><span class="resource-symbol">PR</span><span><b>About pull requests</b><small>چرایی و چگونگی Code Review</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener"><span class="resource-symbol">WEB</span><span><b>Creating a GitHub Pages site</b><small>مراحل رسمی انتشار سایت ایستا</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/docs/git-diff" target="_blank" rel="noopener"><span class="resource-symbol">DIFF</span><span><b>Git: git-diff</b><small>مقایسهٔ Working Tree، Stage و Commitها</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/docs/git-apply" target="_blank" rel="noopener"><span class="resource-symbol">PATCH</span><span><b>Git: git-apply</b><small>بررسی و اعمال Patch فایل</small></span><span class="resource-arrow">↗</span></a><a href="https://git-scm.com/docs/git-revert" target="_blank" rel="noopener"><span class="resource-symbol">R</span><span><b>Git: git-revert</b><small>ساخت Commit معکوس بدون بازنویسی تاریخچه</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github" target="_blank" rel="noopener"><span class="resource-symbol github-resource">AUTH</span><span><b>GitHub: احراز هویت</b><small>HTTPS، Token، SSH و ابزار مدیریت Credential</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues" target="_blank" rel="noopener"><span class="resource-symbol">#</span><span><b>About GitHub Issues</b><small>ردیابی باگ‌ها، قابلیت‌ها و کار تیمی</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/quickstart" target="_blank" rel="noopener"><span class="resource-symbol">ISSUE</span><span><b>Quickstart for GitHub Issues</b><small>ساخت Issue، کامنت، برچسب، مسئول و Milestone</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue" target="_blank" rel="noopener"><span class="resource-symbol">#PR</span><span><b>Linking a Pull Request to an Issue</b><small>ارجاع و بستن خودکار Issue</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/get-started/exploring-projects-on-github" target="_blank" rel="noopener"><span class="resource-symbol">EXP</span><span><b>Exploring projects on GitHub</b><small>Explore، مشارکت متن‌باز، Star و Follow</small></span><span class="resource-arrow">↗</span></a><a href="https://docs.github.com/en/get-started/git-basics/managing-remote-repositories" target="_blank" rel="noopener"><span class="resource-symbol">REMOTE</span><span><b>Managing remote repositories</b><small>افزودن، تغییر URL، تغییر نام و حذف Remote</small></span><span class="resource-arrow">↗</span></a><a href="https://maktabkhooneh.org/course/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%DA%AF%DB%8C%D8%AA-%D8%AC%D8%A7%D8%AF%DB%8C-mk12029/" target="_blank" rel="noopener"><span class="resource-symbol">FA</span><span><b>آموزش Git جادی — مکتب‌خونه</b><small>منبع آموزشی فارسی مکمل برای مرور و تمرین</small></span><span class="resource-arrow">↗</span></a></div>
+        <div class="closing-card"><span class="closing-bloom">✳</span><div><span class="eyebrow">حرف آخر</span><h2>کمتر حدس بزن؛ بیشتر بررسی کن.</h2><p>Git با فهمیدن تاریخچه و دیدن وضعیت قابل اعتماد می‌شود. لازم نیست همهٔ دستورها را حفظ کنی؛ باید بدانی چطور سؤال درست بپرسی و نتیجهٔ عملیاتت را بررسی کنی. Rebase می‌تواند تاریخچهٔ شاخهٔ شخصی را خطی‌تر کند، اما Commitهای بازنویسی‌شده شناسهٔ جدید می‌گیرند؛ روی تاریخچهٔ عمومی/مشترک بدون هماهنگی Rebase نکن.</p></div><a class="button button-primary" href="#home">بازگشت به ابتدا ↑</a></div>
       </section>
       <footer class="site-footer"><span>Git & GitHub · وب‌بوک فارسی برای ارائهٔ دانشجویی</span><span>محتوا با اتکا به منابع رسمی Git و GitHub</span></footer>
     </main>

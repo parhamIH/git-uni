@@ -54,3 +54,32 @@
 - روی «حالت ارائه» کلیک کن و با کلیدهای جهت‌دار بین فصل‌ها حرکت کن؛ با `Escape` خارج شو.
 - برای آماده‌بودن در کلاس، یک نسخهٔ محلی از پروژه را هم نگه دار تا بدون اینترنت قابل نمایش باشد.
 - فایل `content-fa.md` نسخهٔ مستقل متن آموزشی است و شامل جزئیات تکمیلی برای مطالعه و یادداشت‌برداری است.
+
+
+## نسخهٔ تکمیلی آموزشی
+
+این نسخه محتوای عمیق‌تری برای ارائه اضافه می‌کند و هر فصل را با یکی از برچسب‌های **Git**، **GitHub** یا **Git + GitHub** مشخص می‌کند. مباحث تازه شامل VCS/CVCS/DVCS، نصب، تنظیم نام/ایمیل و ویرایشگر، توضیح پوشهٔ `.git`، همهٔ شکل‌های رایج `git diff`، Patch و `git apply`، سوییچ‌های `git log`، `git show`، `git add -A` و `git add -p`، `git commit -a -m`، `git mv`، `restore` و `reset`، `commit --amend`، `commit -s`، Fast-forward و Three-way merge، راهنمای Remote، Rebase و Rollback با Revert است.
+
+**یادآوری امنیتی:** برای احراز هویت GitHub از `git config --global password` استفاده نکنید؛ GitHub برای عملیات Git over HTTPS رمز عادی حساب را نمی‌پذیرد. از Git Credential Manager، GitHub CLI یا SSH استفاده کنید.
+
+محتوای مفصل‌تر برای یادداشت‌های مجری در `content-fa.md` است.
+
+
+## مسیر عملی از صفر تا Push
+
+نسخهٔ فعلی یک فصل کامل از ساخت حساب GitHub و Repository تا نصب/تنظیم Git، Clone، تغییر README، `git status`، `git diff`، Stage، Commit، Push، Branch و Pull Request دارد. این فصل برای اجرای زنده در کلاس نوشته شده است؛ متن جداگانه در `content-fa.md` نیز به‌روز شده است.
+
+
+## سرفصل‌های تکمیلی نسخهٔ جدید
+
+- مرور بخش‌های مهم GitHub UI و قابلیت‌های Repository، Profile، Actions، Projects، Discussions، Security، Releases و موارد دیگر
+- تفاوت Star، Watch، Fork و Follow، روش استفاده از Explore/Trending و ارزیابی Repositoryهای دیگران
+- گردش کامل Issue از ساخت در UI تا نوشتن Comment، ارجاع در Commit message و بستن خودکار از طریق Pull Request
+- توضیح کامل‌تر Remoteها، `origin` و `upstream`، Remote-tracking Branch، تغییر URL، چند Remote، خطاهای رایج و همگام‌سازی بعد از Fork
+- پاسخ‌نامهٔ ثابت برای آزمون تعاملی پنج‌سؤالی و سه سناریوی اضافه
+
+منابع افزوده‌شده:
+- آموزش Git جادی در مکتب‌خونه: https://maktabkhooneh.org/course/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%DA%AF%DB%8C%D8%AA-%D8%AC%D8%A7%D8%AF%DB%8C-mk12029/
+- GitHub Issues Quickstart: https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/quickstart
+- GitHub Explore: https://docs.github.com/en/get-started/exploring-projects-on-github
+- Managing Remote Repositories: https://docs.github.com/en/get-started/git-basics/managing-remote-repositories
